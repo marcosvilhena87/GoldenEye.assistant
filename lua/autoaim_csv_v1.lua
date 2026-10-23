@@ -13,7 +13,9 @@ local function append(path, header, values)
   if f then f:close() end
   f=assert(io.open(path,"a"))
   if not exists then f:write(header,"\n") end
-  for i,v in ipairs(values) do values[i]=csv(v) end
+  local count=1
+  for _ in header:gmatch(",") do count=count+1 end
+  for i=1,count do values[i]=csv(values[i]) end
   f:write(table.concat(values,","),"\n")
   f:close()
 end
