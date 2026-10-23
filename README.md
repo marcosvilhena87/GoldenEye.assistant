@@ -83,3 +83,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.2
 
 [Temporal Candidate Validation](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_2.md): observador RDRAM read-only, dois candidatos de quatro bytes, marcadores BEGIN/END e relatório offline de transições, float32 LE apenas como hipótese. Sem símbolos validados, comandos de giro ou disparo.
+
+## Horizontal Correction Discovery v1.3 — Camera/Aim Discrimination
+
+[Protocolo v1.3](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_3.md): diferencia testes com câmera fixa e Auto-Aim ON/OFF de rotação de Bond sem alvo. Câmera fixa é condição declarada pelo operador (ainda sem sensor de heading validado). Observador read-only, análise temporal offline, sem controle automático.
