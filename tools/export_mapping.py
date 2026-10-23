@@ -33,9 +33,11 @@ def export(mapping: Path, rom_id: str):
     if len(matches) != 1 or not SHA256.fullmatch(matches[0].get("sha256", "")):
         raise ValueError("ROM id missing/ambiguous or invalid SHA-256")
     symbols = json.loads((catalog / "symbols.json").read_text(encoding="utf-8"))
-    selected = [s for s in symbols if s.get("rom_id") == rom_id and s.get("status") != "rejected"]
+    selected = [s for s in symbols if s.get("rom_id") == rom_id]
+    # Fail closed: experimental candidates are never exported as operational Lua symbols.
     if len({s["id"] for s in selected}) != len(selected):
         raise ValueError("duplicate symbol id")
+    selected = [s for s in selected if s.get("status") == "validated"]
     revision = subprocess.run(
         ["git", "-C", str(mapping), "rev-parse", "HEAD"],
         capture_output=True, text=True, check=True
