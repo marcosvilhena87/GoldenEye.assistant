@@ -63,3 +63,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Auto-Aim Memory Discovery v1.5 — Semantic Field Identification
 
 [Protocolo v1.5](docs/AUTOAIM_MEMORY_DISCOVERY_V1_5.md): leitura temporal dos cinco candidatos com marcadores BEGIN/END, experimentos manuais de uma variável por vez e comparação de valores antes/durante/depois. São hipóteses experimentais, sem escrita em RAM e sem promoção automática de símbolos ao GoldenEye.mapping.
+
+## Auto-Aim Memory Discovery v1.5.1 — Intervention Timing Audit
+
+[Auditoria offline v1.5.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_5_1.md): mede distância entre transições e marcadores BEGIN/END, detecta alterações ocorridas antes do início e compara defasagens ON/OFF entre três offsets experimentais. Não modifica as capturas existentes nem estabelece causalidade ou endereços validados.
