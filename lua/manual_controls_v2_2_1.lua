@@ -36,6 +36,9 @@ end
 function M.new(opts)
  local o=opts or {}
  local prefix=o.prefix or "manual_controls_v2_2_1"
+ local csv_dir=o.csv_dir or "output/csv/"
+ local sessions_dir=o.sessions_dir or "output/sessions/"
+ local commands_dir=o.commands_dir or "output/commands/"
  local port=o.port or 1
  local profile=assert(o.profile,"Canonical profile export missing")
  assert(profile.profile=="default" and type(profile.mappings)=="table","Invalid profile")
@@ -48,10 +51,10 @@ function M.new(opts)
  local phase="baseline"
  local last_frame=nil;local old=nil;local old_source=nil
  local trials={};local trial_num=0
- local queue=o.queue or "manual_controls_v2_2_1_inbox"
+ local queue=o.queue or commands_dir.."manual_controls_v2_2_1_inbox"
  local next_command=1
  local session_queue=queue.."/"..session
- local manifest=prefix.."_session.txt"
+ local manifest=sessions_dir..prefix.."_session.txt"
  local function frame()
   if emu and emu.framecount then
    local ok,v=pcall(emu.framecount)
@@ -60,14 +63,14 @@ function M.new(opts)
   return -1
  end
  local function diagnostics(code,detail)
-  append(prefix.."_diagnostics.csv","session,frame,code,detail",{session,frame(),code,detail})
+  append(csv_dir..prefix.."_diagnostics.csv","session,frame,code,detail",{session,frame(),code,detail})
  end
  local function annotate(kind,id,detail)
-  append(prefix.."_annotations.csv","session,frame,phase,trial_id,kind,detail",
+  append(csv_dir..prefix.."_annotations.csv","session,frame,phase,trial_id,kind,detail",
    {session,frame(),phase,id,kind,detail})
  end
  local function pending_report()
-  local f=assert(io.open(prefix.."_pending.csv","w"))
+  local f=assert(io.open(csv_dir..prefix.."_pending.csv","w"))
   f:write("session,trial_id,press_frame,phase,control,expected_action,observed_action\n")
   for i=1,trial_num do
    local t=trials[i]
@@ -92,7 +95,7 @@ function M.new(opts)
   elseif result=="no" then match="no" end
   local status=(result=="unknown" and "inconclusive")
    or ((result=="yes" and match=="yes") and "operator_observed" or "contradicted")
-  append(prefix.."_validation.csv",
+  append(csv_dir..prefix.."_validation.csv",
    "session,trial_id,press_frame,report_frame,phase,profile,source,control,expected_action,observed_action,result,match,status,notes",
    {session,id,t.frame,frame(),t.phase,profile.profile,t.source,t.control,t.expected,
     t.observed,result,match,status,note})
@@ -163,7 +166,7 @@ function M.new(opts)
      if type(a)=="boolean" and type(b)=="boolean" then
       kind=b and "PRESS" or "RELEASE"
      elseif type(b)=="number" then kind="AXIS_CHANGE" end
-     append(prefix.."_events.csv",
+     append(csv_dir..prefix.."_events.csv",
       "session,frame,phase,port,source,control,event,old_value,new_value,trial_id",
       {session,fr,phase,port,source,key,kind,asstr(a),asstr(b),
        (kind=="PRESS" and mapping[key]) and (trial_num+1) or ""})
