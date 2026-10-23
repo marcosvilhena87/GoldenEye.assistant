@@ -10,7 +10,12 @@ import re
 import struct
 from pathlib import Path
 
-from tools.analyze_horizontal_v1 import LABELS
+try:
+    from tools.analyze_horizontal_v1 import LABELS
+except ModuleNotFoundError as exc:
+    if exc.name != "tools":
+        raise
+    from analyze_horizontal_v1 import LABELS  # direct execution: python tools/script.py
 
 EXPECTED_SIZE = 8388608
 FORMATS = (("int16_be", ">h"), ("int16_le", "<h"),
