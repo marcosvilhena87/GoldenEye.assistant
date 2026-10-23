@@ -1,5 +1,10 @@
 -- Execute with Lua 5.1+ from the repository root: lua tests/enemy_detector_smoke.lua
-local detector = dofile("lua/enemies.lua").new({})
+local source = debug.getinfo(1, "S").source
+assert(source:sub(1, 1) == "@", "script path unavailable")
+local script_path = source:sub(2):gsub("\\", "/")
+local project_root = script_path:match("^(.*)/tests/[^/]+$")
+assert(project_root, "unable to resolve project root from script path")
+local detector = dofile(project_root .. "/lua/enemies.lua").new({})
 local function observation(entities)
   return { complete=true, source="validated_mapping",
     rom_id="fixture-rom", mapping_commit="fixture-commit", entities=entities }
