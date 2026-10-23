@@ -44,6 +44,7 @@ function M.new(o)
  assert(type(profile)=="table" and profile.profile=="default" and type(profile.mappings)=="table","Canonical profile required")
  local by_button={}
  for _,item in ipairs(profile.mappings) do by_button[item.button]=item.action_id end
+ local diag
  local trial_id=0
  local pending=nil
  local function validation(result,observed,notes)
@@ -70,7 +71,7 @@ function M.new(o)
   write(prefix.."_events.csv","session,frame,phase,action,port,source,control,event,old_value,new_value",
    {session,frame(),phase,action,port,source or "",control or "",kind,old,new})
  end
- local function diag(code,detail)
+ diag=function(code,detail)
   write(prefix.."_diagnostics.csv","session,frame,code,detail",
    {session,frame(),code,detail})
  end
