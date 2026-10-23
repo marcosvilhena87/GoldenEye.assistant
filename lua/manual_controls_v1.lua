@@ -27,7 +27,7 @@ local function valstr(v)
   return tostring(v)
 end
 local function read(source,port)
-  if not joypad or type(joypad[source])~="function" then return nil,"API_UNAVAILABLE" end
+  if not joypad or not joypad[source] then return nil,"API_UNAVAILABLE" end
   local ok,data=pcall(joypad[source],port)
   if not ok then return nil,tostring(data) end
   if type(data)~="table" then return nil,"NON_TABLE_RESULT" end
@@ -98,18 +98,19 @@ function M.new(opts)
     first=false
   end
   function obj:run()
-    local advance=emu and (type(emu.frameadvance)=="function" and emu.frameadvance or (type(emu.yield)=="function" and emu.yield))
-    if not advance then
-      if _G.event and type(_G.event.onframestart)=="function" then
-        diag("INFO","CALLBACK_MODE: frameadvance/yield unavailable; using event.onframestart")
-        _G.event.onframestart(function() self:tick() end,"goldeneye_manual_controls_v1")
-        return true
-      end
-      diag("FATAL","emu.frameadvance, emu.yield, and event.onframestart unavailable")
-      return false
+    local advance=emu and (emu.frameadvance or emu.yield)
+    diag("API_PROBE","emu="..type(emu).."; frameadvance="..type(emu and emu.frameadvance).."; yield="..type(emu and emu.yield).."; event="..type(_G.event).."; onframestart="..type(_G.event and _G.event.onframestart).."; joypad="..type(joypad).."; get="..type(joypad and joypad.get))
+    if advance then
+      diag("START","read-only; port="..port.."; interval="..interval.."; advance API available")
+      while true do self:tick(); advance() end
     end
-    diag("START","read-only; port="..port.."; interval="..interval.."; advance="..(type(emu.frameadvance)=="function" and "frameadvance" or "yield"))
-    while true do self:tick(); advance() end
+    if _G.event and _G.event.onframestart then
+      diag("INFO","CALLBACK_MODE: using event.onframestart")
+      _G.event.onframestart(function() self:tick() end,"goldeneye_manual_controls_v1")
+      return true
+    end
+    diag("FATAL","frameadvance/yield/onframestart not exposed")
+    return false
   end
   return obj
 end
