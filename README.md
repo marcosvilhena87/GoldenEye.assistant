@@ -51,3 +51,7 @@ Implementado coletor experimental [v1.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_1.md) 
 ## Auto-Align de Bond (planejamento)
 
 O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da leitura validada do Auto-Aim horizontal para um controlador limitado de giro de Bond, com calibração, zona morta, interrupção segura e testes sem disparo. Depende das descobertas canônicas no [GoldenEye.mapping](https://github.com/marcosvilhena87/GoldenEye.mapping/blob/main/docs/AUTOAIM_HORIZONTAL_AUTOALIGN_V1.md). **Ainda não há Auto-Align funcional nem Auto-Shot habilitado.**
+
+## Auto-Aim Memory Discovery v1.4 — Temporal Monitoring
+
+[Protocolo v1.4](docs/AUTOAIM_MEMORY_DISCOVERY_V1_4.md): observador somente leitura dos cinco offsets experimentais por frame, com registro de transições e marcadores do operador. A análise temporal gera um resumo independente para cada sessão, preservando todos os CSVs das versões anteriores. **Os offsets não são símbolos validados e não há automação da mira ou disparo.**
