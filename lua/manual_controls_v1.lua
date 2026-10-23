@@ -45,7 +45,7 @@ function M.new(opts)
   local next_sample=0
   local interval=math.max(1,tonumber(opts.interval) or 1)
   local function frame() return emu and emu.framecount and emu.framecount() or -1 end
-  local function event(source,key,kind,old,new)
+  local function log_event(source,key,kind,old,new)
     csv(prefix.."_events.csv","session,frame,phase,port,source,control,event,old_value,new_value",
       {session,frame(),phase,port,source,key,kind,valstr(old),valstr(new)})
   end
@@ -59,7 +59,7 @@ function M.new(opts)
   end
   local obj={}
   function obj:set_phase(p)
-    if type(p)=="string" and p~="" and p~=phase then phase=p;event("operator","phase","PHASE",nil,p) end
+    if type(p)=="string" and p~="" and p~=phase then phase=p;log_event("operator","phase","PHASE",nil,p) end
   end
   function obj:tick()
     local fr=frame()
@@ -89,7 +89,7 @@ function M.new(opts)
             elseif type(v)=="number" then kind="AXIS_CHANGE"
             elseif v==nil then kind="DISAPPEARED"
             end
-            if not first or v==true or (type(v)=="number" and v~=0) then event(source,k,kind,p,v) end
+            if not first or v==true or (type(v)=="number" and v~=0) then log_event(source,k,kind,p,v) end
           end
         end
         previous[source]=input
@@ -100,9 +100,9 @@ function M.new(opts)
   function obj:run()
     local advance=emu and (type(emu.frameadvance)=="function" and emu.frameadvance or (type(emu.yield)=="function" and emu.yield))
     if not advance then
-      if event and type(event.onframestart)=="function" then
+      if _G.event and type(_G.event.onframestart)=="function" then
         diag("INFO","CALLBACK_MODE: frameadvance/yield unavailable; using event.onframestart")
-        event.onframestart(function() self:tick() end,"goldeneye_manual_controls_v1")
+        _G.event.onframestart(function() self:tick() end,"goldeneye_manual_controls_v1")
         return true
       end
       diag("FATAL","emu.frameadvance, emu.yield, and event.onframestart unavailable")
