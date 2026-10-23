@@ -43,3 +43,7 @@ Os binários e o CSV integral permanecem locais em `output/`; não publicar ROM,
 ## Auto-Aim Memory Discovery v1.1
 
 Implementado coletor experimental [v1.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_1.md) com seis snapshots controlados (`A1, A_STABLE, B, B_STABLE, A2, CONTROL_A`), requisições numeradas sem substituição concorrente, gravação de dumps em blocos e analisador que filtra instabilidade e menu sem mudança de opção. Inclui teste sintético de regressão. Execute `python -m unittest discover -s tests -v` e confira as instruções para configuração manual de domínio e tamanho antes de abrir `autoaim_memory_discovery_v1_1.lua` no BizHawk. **Nenhum novo offset foi validado;** os 23.287 candidatos da v1 são somente evidência a filtrar.
+
+## Auto-Aim Memory Discovery v1.2 — Candidate Validation
+
+[Protocolo e comandos da v1.2](docs/AUTOAIM_MEMORY_DISCOVERY_V1_2.md): gerador de watchlist local a partir dos 131 candidatos comuns da v1/v1.1 (não presumidos), coletor Lua de leituras direcionadas, oito estados de teste com controles e analisador CSV de estabilidade. O processo é **somente leitura da RDRAM**; os símbolos canônicos não são promovidos antes de identidade ROM/núcleo confirmada, reinício e testes negativos. Código publicado, execução real no BizHawk ainda pendente.
