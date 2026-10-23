@@ -98,12 +98,18 @@ function M.new(opts)
     first=false
   end
   function obj:run()
-    if not (emu and type(emu.frameadvance)=="function") then
-      diag("FATAL","emu.frameadvance unavailable")
+    local advance=emu and (type(emu.frameadvance)=="function" and emu.frameadvance or (type(emu.yield)=="function" and emu.yield))
+    if not advance then
+      if event and type(event.onframestart)=="function" then
+        diag("INFO","CALLBACK_MODE: frameadvance/yield unavailable; using event.onframestart")
+        event.onframestart(function() self:tick() end,"goldeneye_manual_controls_v1")
+        return true
+      end
+      diag("FATAL","emu.frameadvance, emu.yield, and event.onframestart unavailable")
       return false
     end
-    diag("START","read-only; port="..port.."; interval="..interval)
-    while true do self:tick();emu.frameadvance() end
+    diag("START","read-only; port="..port.."; interval="..interval.."; advance="..(type(emu.frameadvance)=="function" and "frameadvance" or "yield"))
+    while true do self:tick(); advance() end
   end
   return obj
 end
