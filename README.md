@@ -79,3 +79,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.1 — Typed Interpretation
 
 [Analisador offline v1.1](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_1.md) reinterpreta os 736 candidatos da sessão v1 em vizinhanças `int16/int32/float32`, big/little endian, sem novas capturas e sem substituir os arquivos v1. Nenhuma classificação estabelece ângulo, memória operacional ou Auto-Align.
+
+## Horizontal Correction Discovery v1.2
+
+[Temporal Candidate Validation](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_2.md): observador RDRAM read-only, dois candidatos de quatro bytes, marcadores BEGIN/END e relatório offline de transições, float32 LE apenas como hipótese. Sem símbolos validados, comandos de giro ou disparo.
