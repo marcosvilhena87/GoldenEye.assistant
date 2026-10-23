@@ -39,12 +39,15 @@ function M.new(o)
  local port=o.port or 1
  local phase="baseline"; local action="unlabeled";local expected=""
  local last_frame=nil;local previous=nil;local last_source=nil;local cursor=0
+ local last_command_poll=-1000
+ local command_poll_interval=30
  local command_path=prefix.."_commands.txt"
  local profile=o.profile
  assert(type(profile)=="table" and profile.profile=="default" and type(profile.mappings)=="table","Canonical profile required")
  local by_button={}
  for _,item in ipairs(profile.mappings) do by_button[item.button]=item.action_id end
  local diag
+ local frame
  local trial_id=0
  local pending=nil
  local function validation(result,observed,notes)
@@ -61,7 +64,7 @@ function M.new(o)
     pending.expected_action,semantic,result,match,status,notes})
   pending=nil
  end
- local function frame()
+ frame=function()
   if emu and emu.framecount then
    local ok,v=pcall(emu.framecount);if ok then return v end
   end
@@ -94,14 +97,19 @@ function M.new(o)
   elseif cmd=="RESULT" then
    local result=value:lower()
    if result=="yes" or result=="no" or result=="unknown" then
-    validation(result,pending and (pending.observed or "") or "","operator response")
+    if pending and result=="yes" and (pending.observed==nil or pending.observed=="") then
+     diag("MISSING_OBSERVATION","RESULT:yes ignored; send OBSERVED first")
+    else
+     validation(result,pending and (pending.observed or "") or "","operator response")
+    end
    else diag("INVALID_RESULT",value) end
   elseif cmd=="RESET" then
    action="unlabeled";expected="";phase="baseline";pending=nil;annotation("RESET","")
   else diag("INVALID_COMMAND",line) end
  end
  local function poll_commands()
-  local f=io.open(command_path,"r");if not f then return end
+  local ok,f=pcall(io.open,command_path,"r")
+  if not ok or not f then return end
   local length=f:seek("end") or 0
   if length<cursor then cursor=0 end
   f:seek("set",cursor)
@@ -122,7 +130,10 @@ function M.new(o)
   local fr=frame()
   if last_frame==fr then return end
   last_frame=fr
-  poll_commands()
+  if fr<last_command_poll or fr-last_command_poll>=command_poll_interval then
+   last_command_poll=fr
+   poll_commands()
+  end
   local cur,src=read_input(port)
   if not cur then
    if last_source~="unavailable" then diag("SOURCE_UNAVAILABLE",src) end
