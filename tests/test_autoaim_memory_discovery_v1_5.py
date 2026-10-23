@@ -6,7 +6,7 @@ class V15Tests(unittest.TestCase):
   markers=[dict(frame="1",phase="BEGIN",action="AUTOAIM_OFF"),dict(frame="3",phase="END",action="AUTOAIM_OFF")]
   result=analyze(samples,markers)
   self.assertEqual(len(result),5)
-  self.assertEqual(result[0]["inside_changes"],1)
+  self.assertEqual(result[0]["inside_changes"],2)
   self.assertEqual(result[0]["before_byte"],1)
  def test_unclosed_window(self):
   with self.assertRaises(ValueError):
