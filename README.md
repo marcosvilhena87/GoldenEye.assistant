@@ -71,3 +71,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Auto-Aim v1.6 — Semantic Consolidation
 
 [Consolidação v1.6](docs/AUTOAIM_SEMANTIC_CONSOLIDATION_V1_6.md) registra a procedência canônica no `GoldenEye.mapping/experiments/` e inclui verificador offline. A exportação normal filtra estritamente `status=validated` para impedir que offsets experimentais ingressem no controle de mira. Não há Auto-Align ou Auto-Shot operacional.
+
+## Auto-Aim Horizontal Correction Discovery v1
+
+[Protocolo exploratório](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1.md): oito snapshots RDRAM read-only para comparar alvo à esquerda/centro/direita com Auto-Aim ON/OFF e repetição independente da posição esquerda. Análise por byte produz **somente candidatos espaciais**, sem presunção de ângulo, endereço funcional ou comando de giro. Arquivos históricos e catálogos do GoldenEye.mapping permanecem preservados.
