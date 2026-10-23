@@ -47,3 +47,7 @@ Implementado coletor experimental [v1.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_1.md) 
 ## Auto-Aim Memory Discovery v1.2 — Candidate Validation
 
 [Protocolo e comandos da v1.2](docs/AUTOAIM_MEMORY_DISCOVERY_V1_2.md): gerador de watchlist local a partir dos 131 candidatos comuns da v1/v1.1 (não presumidos), coletor Lua de leituras direcionadas, oito estados de teste com controles e analisador CSV de estabilidade. O processo é **somente leitura da RDRAM**; os símbolos canônicos não são promovidos antes de identidade ROM/núcleo confirmada, reinício e testes negativos. Código publicado, execução real no BizHawk ainda pendente.
+
+## Auto-Align de Bond (planejamento)
+
+O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da leitura validada do Auto-Aim horizontal para um controlador limitado de giro de Bond, com calibração, zona morta, interrupção segura e testes sem disparo. Depende das descobertas canônicas no [GoldenEye.mapping](https://github.com/marcosvilhena87/GoldenEye.mapping/blob/main/docs/AUTOAIM_HORIZONTAL_AUTOALIGN_V1.md). **Ainda não há Auto-Align funcional nem Auto-Shot habilitado.**
