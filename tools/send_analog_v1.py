@@ -2,11 +2,13 @@
 from pathlib import Path
 import sys,uuid,os
 P="analog_v1"
+ROOT=Path(__file__).resolve().parents[1]
+OUTPUT=ROOT/"output"
 def main():
     if len(sys.argv)<3 or sys.argv[1].upper() not in ("PHASE","NOTE"):
         raise SystemExit("Usage: python tools/send_analog_v1.py PHASE neutral|up|down|left|right|up_left|up_right|down_left|down_right")
-    session=Path(P+"_session.txt").read_text(encoding="utf-8").strip()
-    folder=Path(P+"_inbox")/session
+    session=(OUTPUT/"sessions"/(P+"_session.txt")).read_text(encoding="utf-8").strip()
+    folder=(OUTPUT/"commands"/(P+"_inbox"))/session
     folder.mkdir(parents=True,exist_ok=True)
     ids=[int(p.stem) for p in folder.glob("*.cmd") if p.stem.isdigit()]
     n=max(ids,default=0)+1
