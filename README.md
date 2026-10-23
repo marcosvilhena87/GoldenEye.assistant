@@ -87,3 +87,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.3 — Camera/Aim Discrimination
 
 [Protocolo v1.3](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_3.md): diferencia testes com câmera fixa e Auto-Aim ON/OFF de rotação de Bond sem alvo. Câmera fixa é condição declarada pelo operador (ainda sem sensor de heading validado). Observador read-only, análise temporal offline, sem controle automático.
+
+## Horizontal Correction Discovery v1.4 — Directional Calibration
+
+[Protocolo v1.4](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_4.md): comparação temporal de movimentos esquerdo/direito do alvo com câmera fixa, controles OFF e rotação manual de Bond. Capturas read-only, auditoria de sincronização e relatório explícito de encerramento da sessão; sem ângulos ou símbolos validados.
