@@ -34,6 +34,8 @@ function M.new(opts)
   local last_status=nil
   local last_phase=nil
   local next_frame=0
+  local command_cursor=0
+  local commands_path=prefix.."_commands.txt"
   local resolver=opts.reader -- optional: function returns values/status from validated mapping only
   local function event(name,detail)
     append(prefix.."_events.csv",EVENT_HEADER,{session,framecount(),name,phase,detail or ""})
@@ -49,6 +51,28 @@ function M.new(opts)
   end
   function obj:mark(name,detail) event(name,detail) end
   function obj:tick()
+    local cmd=io.open(commands_path,"r")
+    if cmd then
+      local bytes=cmd:seek("end") or 0
+      if bytes<command_cursor then command_cursor=0 end
+      cmd:seek("set",command_cursor)
+      while true do
+        local line=cmd:read("*l")
+        if not line then break end
+        local newpos=cmd:seek()
+        if line:match("^PHASE:") then
+          self:set_phase(line:sub(7))
+        elseif line:match("^EVENT:") then
+          event("OPERATOR",line:sub(7))
+        elseif line:match("^NOTE:") then
+          event("NOTE",line:sub(6))
+        elseif line~="" then
+          diagnostic("WARN","INVALID_COMMAND",line)
+        end
+        command_cursor=newpos
+      end
+      cmd:close()
+    end
     local frame=framecount()
     if frame<next_frame then return end
     next_frame=frame+interval
