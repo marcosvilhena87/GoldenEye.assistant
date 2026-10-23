@@ -38,6 +38,15 @@ class ExportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             export(self.root, "usa")
 
+    def test_candidate_is_not_exported(self):
+        self.write("symbols", [{"id":"unverified","rom_id":"usa","status":"reproduced"}])
+        self.assertEqual(export(self.root, "usa")["symbols"], [])
+
+    def test_validated_symbol_is_exported(self):
+        symbol={"id":"verified","rom_id":"usa","status":"validated"}
+        self.write("symbols", [symbol])
+        self.assertEqual(export(self.root, "usa")["symbols"], [symbol])
+
     def test_lua_escapes(self):
         self.assertIn("\\034", lua('"'))
         self.assertIn("\\092", lua("\\"))
