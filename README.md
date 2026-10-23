@@ -75,3 +75,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Auto-Aim Horizontal Correction Discovery v1
 
 [Protocolo exploratório](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1.md): oito snapshots RDRAM read-only para comparar alvo à esquerda/centro/direita com Auto-Aim ON/OFF e repetição independente da posição esquerda. Análise por byte produz **somente candidatos espaciais**, sem presunção de ângulo, endereço funcional ou comando de giro. Arquivos históricos e catálogos do GoldenEye.mapping permanecem preservados.
+
+## Horizontal Correction Discovery v1.1 — Typed Interpretation
+
+[Analisador offline v1.1](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_1.md) reinterpreta os 736 candidatos da sessão v1 em vizinhanças `int16/int32/float32`, big/little endian, sem novas capturas e sem substituir os arquivos v1. Nenhuma classificação estabelece ângulo, memória operacional ou Auto-Align.
