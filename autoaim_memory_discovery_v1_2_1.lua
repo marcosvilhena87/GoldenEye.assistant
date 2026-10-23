@@ -39,7 +39,8 @@ local function write_new(path, data)
 end
 write_new(manifest,"session,label,frame,domain,count\n")
 write_new(samples,"session,label,frame,domain,offset_hex,byte\n")
-write_new(ROOT.."sessions/autoaim_mem_v1_2_1_session.txt",session.."\n")
+local pointer=assert(io.open(ROOT.."sessions/autoaim_mem_v1_2_1_session.txt","wb"))
+pointer:write(session,"\n");pointer:close()
 local index=1
 print("[autoaim.memory.v1.2.1] session="..session.." candidate_count="..#offsets.." domain="..DOMAIN)
 local function capture(label)
