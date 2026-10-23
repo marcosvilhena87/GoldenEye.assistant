@@ -39,3 +39,7 @@ Os observadores ativos de controles v2.2.1 e analógico v1 gravam em `output/csv
 O procedimento de captura A/B/A na RDRAM (8 MiB por snapshot) foi executado na sessão `20261023T043912Z_38579`: 323.702 diferenças A1/B e 23.287 offsets reversíveis `A1=A2!=B`. Esses valores são **candidatos experimentais**, não símbolos de memória validados. Veja [o relatório e protocolo](docs/AUTOAIM_MEMORY_DISCOVERY_V1.md) e [o registro canônico de evidências no GoldenEye.mapping](https://github.com/marcosvilhena87/GoldenEye.mapping/blob/main/experiments/autoaim_memory_discovery_v1_20261023.json).
 
 Os binários e o CSV integral permanecem locais em `output/`; não publicar ROM, dumps ou snapshots do jogo. A identidade hash da ROM usada ainda não foi confirmada. Nenhum endereço foi incluído no catálogo de símbolos.
+
+## Auto-Aim Memory Discovery v1.1
+
+Implementado coletor experimental [v1.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_1.md) com seis snapshots controlados (`A1, A_STABLE, B, B_STABLE, A2, CONTROL_A`), requisições numeradas sem substituição concorrente, gravação de dumps em blocos e analisador que filtra instabilidade e menu sem mudança de opção. Inclui teste sintético de regressão. Execute `python -m unittest discover -s tests -v` e confira as instruções para configuração manual de domínio e tamanho antes de abrir `autoaim_memory_discovery_v1_1.lua` no BizHawk. **Nenhum novo offset foi validado;** os 23.287 candidatos da v1 são somente evidência a filtrar.
