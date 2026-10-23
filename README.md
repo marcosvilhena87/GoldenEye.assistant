@@ -30,3 +30,6 @@ docs/ARCHITECTURE.md
 **Estado inicial:** todos os catálogos de memória continuam vazios; exportar um snapshot vazio não habilita leituras.
 
 Não distribuir ROMs ou dumps proprietários.
+
+## Arquivos gerados
+Os observadores ativos de controles v2.2.1 e analógico v1 gravam em `output/csv/`, `output/sessions/` e `output/commands/`. Execute `python tools/prepare_output.py --migrate` (com a Lua Console parada) após atualizar o repositório. Veja [docs/OUTPUT_LAYOUT.md](docs/OUTPUT_LAYOUT.md). Arquivos-fonte Lua ficam em `lua/`, e os inicializadores continuam na raiz para compatibilidade.
