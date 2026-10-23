@@ -8,9 +8,10 @@ session_path=ROOT/"output/sessions/autoaim_mem_v1_2_session.txt"
 if not session_path.is_file():sys.exit("Start the v1.2 collector first")
 session=session_path.read_text().strip()
 manifest=ROOT/"output/csv/autoaim_mem_v1_2_manifest.csv"
-with manifest.open(newline="",encoding="utf-8") as f:
- rows=[r for r in csv.DictReader(f) if r["session"]==session]
-if manifest.exists() else []
+rows=[]
+if manifest.exists():
+ with manifest.open(newline="",encoding="utf-8") as f:
+  rows=[r for r in csv.DictReader(f) if r["session"]==session]
 done=[r["label"] for r in rows]
 if done!=list(LABELS[:len(done)]):sys.exit("Manifest contains unexpected labels; stop")
 if len(done)>=len(LABELS):sys.exit("Session already complete")
