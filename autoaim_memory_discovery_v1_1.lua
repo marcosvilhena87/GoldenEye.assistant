@@ -27,7 +27,7 @@ local function check(path)
  if not f then error("Missing output folder: "..path.."; run python tools/prepare_output.py") end
  f:close()
 end
-check(ROOT.."sessions/.gitkeep")
+-- Output directory validated by session-file creation below; no .gitkeep dependency.
 local function write(path,content)
  local f=assert(io.open(path,"wb"));f:write(content);f:close()
 end
