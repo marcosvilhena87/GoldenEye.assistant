@@ -6,9 +6,11 @@ import sys
 import uuid
 
 PREFIX = "manual_controls_v2_2_1"
-SESSION_FILE = Path(PREFIX + "_session.txt")
-INBOX = Path(PREFIX + "_inbox")
-PENDING = Path(PREFIX + "_pending.csv")
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT = ROOT / "output"
+SESSION_FILE = OUTPUT / "sessions" / (PREFIX + "_session.txt")
+INBOX = OUTPUT / "commands" / (PREFIX + "_inbox")
+PENDING = OUTPUT / "csv" / (PREFIX + "_pending.csv")
 
 def current_session():
     if not SESSION_FILE.exists():
