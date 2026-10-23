@@ -91,3 +91,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.4 — Directional Calibration
 
 [Protocolo v1.4](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_4.md): comparação temporal de movimentos esquerdo/direito do alvo com câmera fixa, controles OFF e rotação manual de Bond. Capturas read-only, auditoria de sincronização e relatório explícito de encerramento da sessão; sem ângulos ou símbolos validados.
+
+## Horizontal Correction Discovery v1.5 — Camera/Aim Separation
+
+[Protocolo v1.5](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_5.md): capturas somente leitura em janelas candidatas e adjacentes alinhadas; comparação entre câmera fixa com mira acompanhando alvo e rotação de Bond sem alvo ou com Auto-Aim desligado. Relatórios imutáveis e encerramento auditável. Sem novos endereços presumidos nem controle automático.
