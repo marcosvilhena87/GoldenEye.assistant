@@ -1,0 +1,5 @@
+config/mapping_snapshot.lua
+__pycache__/
+*.pyc
+*.log
+*.csv
