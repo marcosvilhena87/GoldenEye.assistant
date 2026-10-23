@@ -67,3 +67,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Auto-Aim Memory Discovery v1.5.1 — Intervention Timing Audit
 
 [Auditoria offline v1.5.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_5_1.md): mede distância entre transições e marcadores BEGIN/END, detecta alterações ocorridas antes do início e compara defasagens ON/OFF entre três offsets experimentais. Não modifica as capturas existentes nem estabelece causalidade ou endereços validados.
+
+## Auto-Aim v1.6 — Semantic Consolidation
+
+[Consolidação v1.6](docs/AUTOAIM_SEMANTIC_CONSOLIDATION_V1_6.md) registra a procedência canônica no `GoldenEye.mapping/experiments/` e inclui verificador offline. A exportação normal filtra estritamente `status=validated` para impedir que offsets experimentais ingressem no controle de mira. Não há Auto-Align ou Auto-Shot operacional.
