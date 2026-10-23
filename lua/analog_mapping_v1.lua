@@ -24,19 +24,22 @@ end
 function M.new(o)
  o=o or {}
  local prefix=o.prefix or "analog_v1"
+ local csv_dir=o.csv_dir or "output/csv/"
+ local sessions_dir=o.sessions_dir or "output/sessions/"
+ local commands_dir=o.commands_dir or "output/commands/"
  local session=os.date("!%Y%m%dT%H%M%SZ").."_"..tostring(emu.framecount())
  local phase="neutral"
  local previous=nil
  local source_old=nil
  local last_frame=nil
- local inbox=prefix.."_inbox/"..session
+ local inbox=commands_dir..prefix.."_inbox/"..session
  local command_idx=1
  local frame=function()return emu.framecount()end
  local function diag(code,detail)
-  csv(prefix.."_diagnostics.csv","session,frame,code,detail",{session,frame(),code,detail})
+  csv(csv_dir..prefix.."_diagnostics.csv","session,frame,code,detail",{session,frame(),code,detail})
  end
  local function sample(controls,source,kind)
-  csv(prefix.."_samples.csv","session,frame,phase,source,kind,x_axis,y_axis",
+  csv(csv_dir..prefix.."_samples.csv","session,frame,phase,source,kind,x_axis,y_axis",
    {session,frame(),phase,source,kind,controls["X Axis"],controls["Y Axis"]})
  end
  local function command(s)
@@ -81,7 +84,7 @@ function M.new(o)
   previous={["X Axis"]=x,["Y Axis"]=y}
  end
  function obj:run()
-  local f=assert(io.open(prefix.."_session.txt","w"))
+  local f=assert(io.open(sessions_dir..prefix.."_session.txt","w"))
   f:write(session,"\n");f:close()
   diag("START","read_only; axes_raw; port="..tostring(o.port or 1))
   local advance=emu and (emu.frameadvance or emu.yield)
