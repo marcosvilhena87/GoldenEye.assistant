@@ -55,3 +55,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Auto-Aim Memory Discovery v1.4 — Temporal Monitoring
 
 [Protocolo v1.4](docs/AUTOAIM_MEMORY_DISCOVERY_V1_4.md): observador somente leitura dos cinco offsets experimentais por frame, com registro de transições e marcadores do operador. A análise temporal gera um resumo independente para cada sessão, preservando todos os CSVs das versões anteriores. **Os offsets não são símbolos validados e não há automação da mira ou disparo.**
+
+## Auto-Aim Memory Discovery v1.4.1 — Temporal Event Correlation
+
+[Analisador offline v1.4.1](docs/AUTOAIM_MEMORY_DISCOVERY_V1_4_1.md): agrupa transições em episódios, correlaciona com marcadores de operador (janela configurável), verifica sincronização entre `0x0D308B` e `0x0D309B` e identifica rampas monotônicas. Opera somente nos CSVs existentes, sem modificar evidências históricas ou validar símbolos automaticamente.
