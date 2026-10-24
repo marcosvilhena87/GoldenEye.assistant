@@ -99,3 +99,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.5.1 — Timeline Integrity
 
 [Procedimento v1.5.1](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_5_1.md): índices monotônicos de amostras, detecção de saltos e retrocessos do contador do emulador, registro de descontinuidades, encerramento seguro e análise por índice de amostra. A v1.5 e suas evidências permanecem intactas.
+
+## Horizontal Correction Discovery v1.6 — Absolute Value & Context Audit
+
+Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [envio de marcadores](tools/send_horizontal_v1_6.py), [auditoria de trajetórias absolutas e pares](tools/analyze_horizontal_v1_6.py), [testes de integridade](tests/test_horizontal_correction_discovery_v1_6.py) e [procedimento operacional](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_6.md). Preservação integral de amostras, inclusive frames estáveis; marcadores por índice monotônico; auditoria BE apenas hipotética; recusa de descontinuidades e de sessões incompletas. **Somente leitura; sem endereços de heading validados, sem Auto-Align/Auto-Shot e sem promoção automática ao GoldenEye.mapping.**
