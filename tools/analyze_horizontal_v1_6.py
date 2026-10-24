@@ -7,7 +7,11 @@ import math
 import re
 import struct
 from pathlib import Path
-from tools.analyze_horizontal_v1_5_1 import OFFSETS, lag_summary
+# Standalone CLI: when called as python tools/analyze_horizontal_v1_6.py,
+# the repository root is not guaranteed to be on sys.path.
+# Keep the eight experimental windows local; do not import from tools package.
+OFFSETS = ("0x0D3995", "0x0D3D3D", "0x0D3990", "0x0D3994",
+           "0x0D3998", "0x0D3D38", "0x0D3D3C", "0x0D3D40")
 
 PAIRED = ("0x0D3998", "0x0D3D40")
 ACTIONS = ("FIXED_NO_TARGET", "FIXED_AIM_LEFT", "FIXED_AIM_RIGHT", "FIXED_AIM_CENTER",
