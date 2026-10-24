@@ -131,3 +131,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Temporal Event Correlation v1.7.5
 
 [Protocolo](docs/TEMPORAL_EVENT_CORRELATION_V1_7_5.md), [analisador](tools/correlate_spatial_events_v1_7_5.py) e [testes](tests/test_temporal_event_correlation_v1_7_5.py): análise offline da captura v1.7.4, com validação de eventos contra o timeline RAW, distância aos marcadores, sincronização/defasagem entre os oito endereços, detecção de estados conjuntos recorrentes e sequências de transições repetidas. Sem novas capturas, sem escrita na memória e sem endereços de Bond ou Auto-Aim promovidos a confirmados.
+
+## Spatial Position Discovery v1.8
+
+[Protocolo experimental](docs/SPATIAL_POSITION_DISCOVERY_V1_8.md), [coletor de snapshots completos](spatial_position_discovery_v1_8.lua), [sender sequencial](tools/send_spatial_v1_8.py), [scanner RDRAM](tools/analyze_spatial_position_v1_8.py) e [testes](tests/test_spatial_position_discovery_v1_8.py). Retoma a procura pela posição física de Bond em toda a RDRAM de 8 MiB, utilizando 14 capturas etiquetadas manualmente de posições intermediárias, finais, repouso e rotação. Captura dependente da confirmação explícita do operador; não lê botões pressionados nem prova deslocamento por si só. Saídas experimentais e somente leitura; sem mapeamento ou geometria validada.
