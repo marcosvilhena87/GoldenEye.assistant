@@ -8,7 +8,12 @@ import math
 import struct
 from collections import defaultdict
 from pathlib import Path
-from tools.analyze_enemy_freeze_v1 import load_manifest, pairs
+try:
+    from tools.analyze_enemy_freeze_v1 import load_manifest, pairs
+except ModuleNotFoundError as exc:
+    if exc.name != "tools":
+        raise
+    from analyze_enemy_freeze_v1 import load_manifest, pairs
 
 SIZE = 8388608
 FIELDS = ["rank","offset_hex","offset_int","encoding","p1","p2","delta",
