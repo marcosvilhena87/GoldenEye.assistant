@@ -21,7 +21,8 @@ class SpatialPositionV174Tests(unittest.TestCase):
   sid,m,t,term=self.fixture()
   rows=audit(m,t,term,[],sid)
   self.assertEqual(len(rows),8)
-  self.assertEqual(rows[0]["samples"],4)
+  self.assertEqual(rows[0]["samples"],3)
+  self.assertEqual(rows[0]["end_sample"],3)
   self.assertEqual(rows[0]["raw_changes"],2)
  def test_reject_incomplete(self):
   sid,m,t,term=self.fixture()
