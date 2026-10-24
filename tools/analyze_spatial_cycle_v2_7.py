@@ -66,10 +66,10 @@ def audit(session,frames,boundaries,null_trials=199):
         flags={addr:change_flags(values) for addr,values in arrays.items()}
         for left,right in combinations(ADDRESSES,2):
             a,b=flags[left],flags[right]
-            for lag in LAGS:
+            for lag in (LAGS if (left%4==right%4) else (0,)):
                 x,y=aligned(a,b,lag)
                 obs=compare(x,y)
-                null=circular_null(a,b,lag,null_trials)
+                null=circular_null(a,b,lag,null_trials) if (left%4==right%4) else []
                 obs_phi=obs["phi"]
                 p=(1+sum(value>=obs_phi for value in null))/(len(null)+1) if obs_phi!="" and null else ""
                 sync.append(dict(session=session,phase=phase,left=f"0x{left:06X}",
