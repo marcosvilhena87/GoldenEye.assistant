@@ -103,3 +103,7 @@ O [Auto-Align Roadmap v1](docs/AUTOALIGN_ROADMAP_V1.md) define a evolução da l
 ## Horizontal Correction Discovery v1.6 — Absolute Value & Context Audit
 
 Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [envio de marcadores](tools/send_horizontal_v1_6.py), [auditoria de trajetórias absolutas e pares](tools/analyze_horizontal_v1_6.py), [testes de integridade](tests/test_horizontal_correction_discovery_v1_6.py) e [procedimento operacional](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_6.md). Preservação integral de amostras, inclusive frames estáveis; marcadores por índice monotônico; auditoria BE apenas hipotética; recusa de descontinuidades e de sessões incompletas. **Somente leitura; sem endereços de heading validados, sem Auto-Align/Auto-Shot e sem promoção automática ao GoldenEye.mapping.**
+
+## Horizontal Correction Discovery v1.6.1 — Stationary Target Alignment
+
+[Protocolo e comandos](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_6_1.md): câmera pode ser movimentada **apenas durante MANUAL_ALIGNMENT**, com inimigo parado; a fase STATIONARY_TARGET observa sem controles. Captura contínua e marcadores confirmados pela Lua, análise por fase e do hiato entre elas, sem inferir causalidade da correção da mira. Coletor: `horizontal_correction_discovery_v1_6_1.lua`; envio: `tools/send_horizontal_v1_6_1.py`; análise: `tools/analyze_horizontal_v1_6_1.py`; regressão: `tests/test_horizontal_correction_discovery_v1_6_1.py`. Somente leitura; novos endereços não são validados automaticamente.
