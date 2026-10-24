@@ -15,8 +15,8 @@ class SharedSourceV28Tests(unittest.TestCase):
   frames={}
   for f in range(bounds[0],bounds[-1]):
    row={o:0 for o in range(START,END+1)}
-   row[0x3B30D0]=f%2
-   row[0x3B30E0]=f%2
+   row[0x3B30D0]=(f//3)%2
+   row[0x3B30E0]=(f//3)%2
    row[0x3B30EC]=(f//3)%2
    frames[f]=row
   blocks,values,events=audit('test',frames,bounds,7)
