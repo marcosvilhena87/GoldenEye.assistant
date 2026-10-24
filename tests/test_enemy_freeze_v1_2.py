@@ -26,8 +26,9 @@ class RepeatedStructureTests(unittest.TestCase):
     def test_different_hold_still_detected(self):
         start=0x0D5000;shift=0x11800
         a=bytearray(SIZE);h=bytearray(SIZE)
-        a[start]=3;h[start]=4
-        stats,classes,changed=dynamics(bytes(a),bytes(h),bytes(a),bytes(a),
+        a[start]=3;a[start+shift]=3;h[start]=4
+        b=bytearray(SIZE);b[start]=5;b[start+shift]=6
+        stats,classes,changed=dynamics(bytes(a),bytes(h),bytes(b),bytes(b),
                                        start,start+4,shift)
         self.assertEqual(changed[0]["stable_a"],0)
     def test_invalid_bounds(self):
