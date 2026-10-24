@@ -62,3 +62,7 @@ Import-Csv ".\output\csv\spatial_v1_8_${session}_coordinate_candidates.csv" |
 O analisador percorre todas as palavras alinhadas de 4 bytes, em hipóteses float32 BE e LE, sem corte arbitrário Top-100. Requer variação progressiva em ao menos um par de direções inversas, estabilidade nas paradas e pouca variação entre BACK_HOLD e ROTATE_END. Ordena os candidatos que respondem aos dois pares primeiro. A validação de tipo RAW/inteiro permanece uma etapa posterior. O uso de `--min-delta` (padrão 0.01) e tolerâncias é uma **heurística**, não unidade conhecida da engine.
 
 `two_axes_unverified` significa somente que **um campo** mostrou respostas às duas intervenções ortogonais declaradas: não prova dois eixos independentes nem vetor XYZ. Posições verdadeiras com baixa escala, representações inteiras, deslocamento irregular, câmera móvel ou cenário que progrida entre capturas podem ser omitidas. Nenhum endereço deve ser promovido ao catálogo canônico sem validações independentes.
+
+## Correção de regressão (hold)
+
+Qualquer segmento HOLD instável invalida a cadeia inteira da hipótese de coordenada, pois seu valor passa a ser a referência do deslocamento seguinte. Antes, o analisador podia classificar como `forward_axis_unverified` apesar de `LEFT_HOLD` inválido. A regressão agora cobre os quatro HOLDs; ela não altera snapshots ou o coletor Lua.
