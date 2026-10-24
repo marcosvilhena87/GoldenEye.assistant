@@ -118,6 +118,32 @@ def audit(markers,timeline,session,termination=None,discontinuities=None):
             status="correlation_only_not_heading_or_autoaim_correction"))
     return rows,pairs
 
+
+def phase_comparison(rows):
+    """Compare consecutive manual/stationary intervals without assuming causality."""
+    groups={}
+    for row in rows:
+        groups.setdefault(row["offset_hex"],[]).append(row)
+    result=[]
+    for offset,seq in groups.items():
+        for prev,curr in zip(seq,seq[1:]):
+            if prev["action"]!="MANUAL_ALIGNMENT" or curr["action"] not in ("STATIONARY_TARGET","STATIONARY_TARGET_AIM_OFF"):
+                continue
+            left=prev["float32_be_last"];right=curr["float32_be_first"]
+            result.append(dict(session=prev["session"],offset_hex=offset,
+                manual_end_sample=prev["last_sample"],stationary_start_sample=curr["first_sample"],
+                unsupervised_gap_samples=int(curr["first_sample"])-int(prev["last_sample"])-1,
+                manual_end_raw=prev["last_raw"],stationary_start_raw=curr["first_raw"],
+                raw_changed_between_markers=prev["last_raw"]!=curr["first_raw"],
+                float32_be_difference=(right-left if left is not None and right is not None else None),
+                stationary_changes=curr["changes"],
+                status="descriptive_only_unobserved_gap_may_contain_changes"))
+    return result
+
+PHASE_FIELDS=("session","offset_hex","manual_end_sample","stationary_start_sample",
+              "unsupervised_gap_samples","manual_end_raw","stationary_start_raw",
+              "raw_changed_between_markers","float32_be_difference","stationary_changes","status")
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("session")
@@ -130,8 +156,10 @@ def main():
     termination=read(Path(str(stem)+"_termination.csv"))
     disc=read(Path(str(stem)+"_discontinuities.csv"))
     rows,pairs=audit(mark,timeline,args.session,termination,disc)
+    phases=phase_comparison(rows)
     outputs=((Path(str(stem)+"_absolute_audit.csv"),FIELDS,rows),
-             (Path(str(stem)+"_pair_audit.csv"),PAIR_FIELDS,pairs))
+             (Path(str(stem)+"_pair_audit.csv"),PAIR_FIELDS,pairs),
+             (Path(str(stem)+"_phase_comparison.csv"),PHASE_FIELDS,phases))
     if any(path.exists() for path,_,_ in outputs):
         raise FileExistsError("Audit already exists; refusing partial overwrite")
     for path,fields,data in outputs:
