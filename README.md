@@ -107,3 +107,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Horizontal Correction Discovery v1.6.1 — Stationary Target Alignment
 
 [Protocolo e comandos](docs/HORIZONTAL_CORRECTION_DISCOVERY_V1_6_1.md): câmera pode ser movimentada **apenas durante MANUAL_ALIGNMENT**, com inimigo parado; a fase STATIONARY_TARGET observa sem controles. Captura contínua e marcadores confirmados pela Lua, análise por fase e do hiato entre elas, sem inferir causalidade da correção da mira. Coletor: `horizontal_correction_discovery_v1_6_1.lua`; envio: `tools/send_horizontal_v1_6_1.py`; análise: `tools/analyze_horizontal_v1_6_1.py`; regressão: `tests/test_horizontal_correction_discovery_v1_6_1.py`. Somente leitura; novos endereços não são validados automaticamente.
+
+## Spatial Target Alignment Discovery v1.7 — Bond Position Candidates
+
+[Protocolo operacional](docs/SPATIAL_TARGET_ALIGNMENT_DISCOVERY_V1_7.md): [coletor read-only](spatial_target_alignment_discovery_v1_7.lua), [sender](tools/send_spatial_v1_7.py), [analisador](tools/analyze_spatial_v1_7.py) e [regressão](tests/test_spatial_target_alignment_v1_7.py). Captura snapshots completos da RDRAM de 8 MiB com Bond parado, deslocado, retornado e rotacionado; filtra hipóteses de campos float32 **sem presumir coordenadas ou endereços**. O reconhecimento de soldados e escolha do alvo mais próximo **ainda não estão implementados**. Arquivos de memória são locais e não devem ser publicados. Nenhuma escrita na memória, Auto-Align ou Auto-Shot.
