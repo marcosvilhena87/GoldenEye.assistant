@@ -1,7 +1,10 @@
 """v2.5: offline temporal checks for v2.4 candidates; never validates coordinates."""
 import argparse,csv,math,statistics
 from pathlib import Path
-from analyze_spatial_position_v2_4 import load,decode,PHASES,END
+try:
+    from .analyze_spatial_position_v2_4 import load,decode,PHASES,END
+except ImportError:
+    from analyze_spatial_position_v2_4 import load,decode,PHASES,END
 
 ADDRESSES=(0x3B30D0,0x3B30E0,0x3B30EC)
 KINDS={2:("be_i16","be_u16"),4:("be_f32","le_f32","be_i32","be_u32")}
