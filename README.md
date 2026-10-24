@@ -123,3 +123,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Data Type Validation v1.7.3
 
 [Protocolo](docs/SPATIAL_DATA_TYPE_VALIDATION_V1_7_3.md), [auditoria de bytes, floats e inteiros](tools/validate_spatial_data_types_v1_7_3.py) e [testes](tests/test_spatial_data_types_v1_7_3.py). Reutiliza oito snapshots v1.7 existentes com conferência dos manifestos; não sobrescreve relatórios anteriores. Compara RAW byte a byte, float32 e int32/uint32 nas endianidades big/little, retorno e rotação, preservando classificações descritivas. **Nenhum endereço, tipo de dado ou coordenada é validado automaticamente.**
+
+## Spatial Position Confirmation v1.7.4
+
+[Protocolo](docs/SPATIAL_POSITION_CONFIRMATION_V1_7_4.md), [coletor temporal read-only](spatial_position_confirmation_v1_7_4.lua), [sender](tools/send_spatial_v1_7_4.py), [analisador](tools/analyze_spatial_position_v1_7_4.py), [testes](tests/test_spatial_position_v1_7_4.py). Monitoramento de oito janelas RAW a cada frame com BEGIN/END para repouso, movimentos laterais, frente/trás e rotação, sem inventar offsets ou promover candidatos. Arquivos v1.7-v1.7.3 preservados; nenhuma escrita na memória, Auto-Align ou Auto-Shot.
