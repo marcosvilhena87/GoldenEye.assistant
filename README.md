@@ -119,3 +119,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Coordinate Candidate Validation v1.7.2
 
 [Protocolo](docs/SPATIAL_COORDINATE_VALIDATION_V1_7_2.md) e [validador](tools/validate_spatial_coordinates_v1_7_2.py): refinamento dos relatórios da v1.7.1 usando filtros relativos de rotação/retorno, limiar de movimento, agrupamento de campos alinhados contíguos e padrões numéricos duplicados. Relatórios exclusivos, sem alterar dados de origem; testes: `python -m unittest tests.test_spatial_coordinates_v1_7_2 -v`. Coordenadas e Auto-Aim seguem não validados.
+
+## Spatial Data Type Validation v1.7.3
+
+[Protocolo](docs/SPATIAL_DATA_TYPE_VALIDATION_V1_7_3.md), [auditoria de bytes, floats e inteiros](tools/validate_spatial_data_types_v1_7_3.py) e [testes](tests/test_spatial_data_types_v1_7_3.py). Reutiliza oito snapshots v1.7 existentes com conferência dos manifestos; não sobrescreve relatórios anteriores. Compara RAW byte a byte, float32 e int32/uint32 nas endianidades big/little, retorno e rotação, preservando classificações descritivas. **Nenhum endereço, tipo de dado ou coordenada é validado automaticamente.**
