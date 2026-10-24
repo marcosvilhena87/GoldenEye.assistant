@@ -127,3 +127,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Position Confirmation v1.7.4
 
 [Protocolo](docs/SPATIAL_POSITION_CONFIRMATION_V1_7_4.md), [coletor temporal read-only](spatial_position_confirmation_v1_7_4.lua), [sender](tools/send_spatial_v1_7_4.py), [analisador](tools/analyze_spatial_position_v1_7_4.py), [testes](tests/test_spatial_position_v1_7_4.py). Monitoramento de oito janelas RAW a cada frame com BEGIN/END para repouso, movimentos laterais, frente/trás e rotação, sem inventar offsets ou promover candidatos. Arquivos v1.7-v1.7.3 preservados; nenhuma escrita na memória, Auto-Align ou Auto-Shot.
+
+## Temporal Event Correlation v1.7.5
+
+[Protocolo](docs/TEMPORAL_EVENT_CORRELATION_V1_7_5.md), [analisador](tools/correlate_spatial_events_v1_7_5.py) e [testes](tests/test_temporal_event_correlation_v1_7_5.py): análise offline da captura v1.7.4, com validação de eventos contra o timeline RAW, distância aos marcadores, sincronização/defasagem entre os oito endereços, detecção de estados conjuntos recorrentes e sequências de transições repetidas. Sem novas capturas, sem escrita na memória e sem endereços de Bond ou Auto-Aim promovidos a confirmados.
