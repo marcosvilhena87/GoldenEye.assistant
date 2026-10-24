@@ -111,3 +111,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Target Alignment Discovery v1.7 — Bond Position Candidates
 
 [Protocolo operacional](docs/SPATIAL_TARGET_ALIGNMENT_DISCOVERY_V1_7.md): [coletor read-only](spatial_target_alignment_discovery_v1_7.lua), [sender](tools/send_spatial_v1_7.py), [analisador](tools/analyze_spatial_v1_7.py) e [regressão](tests/test_spatial_target_alignment_v1_7.py). Captura snapshots completos da RDRAM de 8 MiB com Bond parado, deslocado, retornado e rotacionado; filtra hipóteses de campos float32 **sem presumir coordenadas ou endereços**. O reconhecimento de soldados e escolha do alvo mais próximo **ainda não estão implementados**. Arquivos de memória são locais e não devem ser publicados. Nenhuma escrita na memória, Auto-Align ou Auto-Shot.
+
+## Spatial Candidate Cross-Session Validation v1.7.1
+
+[Protocolo](docs/SPATIAL_CROSS_SESSION_VALIDATION_V1_7_1.md) e [analisador](tools/validate_spatial_cross_session_v1_7_1.py): cruzamento **sem limite Top-100** dos oito snapshots completos das sessões esquerda/direita da v1.7. Relatórios imutáveis de todos os candidatos que passam à triagem e sondas prioritárias mesmo quando reprovadas. Testes: `python -m unittest tests.test_spatial_cross_session_v1_7_1 -v`. Candidatos não confirmam posição física ou alvo Auto-Aim.
