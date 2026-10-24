@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 class SpatialPositionV174Tests(unittest.TestCase):
  def fixture(self):
   s="test"
-  markers=[dict(session=s,sample_index=str(i),frame=str(100+i),label=lab,action="MOVE_LEFT" if i<4 else "NONE",phase="BEGIN" if i==1 else "END")
+  markers=[dict(session=s,sample_index=str(i),frame=str(100+i),label=lab,action="MOVE_LEFT",phase="BEGIN" if i==1 else "END")
     for i,lab in ((1,"BEGIN_MOVE_LEFT"),(4,"END_MOVE_LEFT"))]
   t=[]
   for index in range(1,6):
