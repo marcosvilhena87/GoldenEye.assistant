@@ -20,6 +20,29 @@ class SpatialV19Tests(unittest.TestCase):
   self.assertEqual(evaluate(self.records(3))[0]["classification"],"rotation_sensitive_unverified")
  def test_missing_phase_fails(self):
   with self.assertRaises(ValueError):evaluate([r for r in self.records() if r["phase"]!="BACK_HOLD"])
+ def test_prestart_telemetry_is_valid(self):
+  import csv
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp); folder=root/"output/csv";folder.mkdir(parents=True)
+   stem="spatial_v1_9_test"
+   def write(suffix,fields,records):
+    with (folder/(stem+suffix)).open("w",newline="") as f:
+     w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(records)
+   write("_termination.csv",["reason"],[{"reason":"stop"}])
+   write("_markers.csv",["frame","label"],[{"frame":10+i*5,"label":p} for i,p in enumerate(PHASES)])
+   write("_discontinuities.csv",["previous_frame","frame"],[])
+   records=[]
+   for addr in ADDRS:
+    records.append({"session":"test","frame":9,"phase":"PRESTART","address":addr,"raw_be":"42C80000","be_float32":"100"})
+   frame=10
+   for r in self.records():
+    records.append({"session":"test","frame":frame,"phase":r["phase"],"address":r["address"],"raw_be":"42C80000","be_float32":r["be_float32"]})
+    frame+=1
+   records.sort(key=lambda r:int(r["frame"]))
+   write("_samples.csv",["session","frame","phase","address","raw_be","be_float32"],records)
+   dest,result=run("test",root)
+   self.assertTrue(dest.exists())
+   self.assertEqual(len(result),2)
  def test_incomplete_session_fails(self):
   with tempfile.TemporaryDirectory() as tmp:
    folder=Path(tmp)/"output/csv";folder.mkdir(parents=True)
