@@ -76,10 +76,10 @@ def audit(markers,timeline,termination,discontinuities,sid):
  rows=[]
  for action,start,end,_,_ in intervals:
   for off,seq in series.items():
-   vals=[entry[3] for entry in seq[start-1:end]]
+   vals=[entry[3] for entry in seq[start-1:end-1]]
    be=stats(vals,"be");le=stats(vals,"le")
    out=dict(session=sid,action=action,offset_hex=off,start_sample=start,
-      end_sample=end,samples=len(vals),raw_changes=sum(x!=y for x,y in zip(vals,vals[1:])),
+      end_sample=end-1,samples=len(vals),raw_changes=sum(x!=y for x,y in zip(vals,vals[1:])),
       unique_raw=len(set(vals)),first_raw=vals[0],last_raw=vals[-1],
       raw_returned=vals[0]==vals[-1],status="raw_probe_not_confirmed_position")
    for endian,s in (("be",be),("le",le)):
