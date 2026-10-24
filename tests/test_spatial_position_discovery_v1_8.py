@@ -23,6 +23,15 @@ class PositionDiscoveryTests(unittest.TestCase):
  def test_unstable_hold_rejected(self):
   vals=list(values());vals[3]=999
   self.assertIsNone(classify(vals))
+ def test_other_unstable_holds_rejected(self):
+  for index in (6,9,12):
+   with self.subTest(index=index):
+    vals=list(values());vals[index]=999
+    self.assertIsNone(classify(vals))
+ def test_valid_forward_only_candidate(self):
+  vals=list(values());vals[1]=0;vals[2]=0;vals[3]=0
+  vals[4]=0;vals[5]=0;vals[6]=0
+  self.assertEqual(classify(vals)["classification"],"forward_axis_unverified")
  def test_sender_enforces_order(self):
   with TemporaryDirectory() as folder:
    root=Path(folder)
