@@ -2,12 +2,24 @@ import unittest
 from tools.analyze_spatial_community_cv_v3_3 import (
     audit, empirical_p, candidate_edges, communities, BLOCKS
 )
-from tests.test_spatial_region_v3_1 import RegionalV31Tests
+from tools.analyze_spatial_position_v2_4 import START, END
 
 class CommunityCVV33Tests(unittest.TestCase):
     def input(self):
-        f,m=RegionalV31Tests().sample()
-        g,n=RegionalV31Tests().sample(1)
+        # Each phase needs >=24 transitions (>=25 frames), not 24 frames.
+        def sample(shift):
+            markers=[100+i*48 for i in range(10)]
+            frames={}
+            for frame in range(markers[0],markers[-1]):
+                row={address:0 for address in range(START,END+1)}
+                for j,base in enumerate(BLOCKS):
+                    row[base]=((frame//(3+(j%4)))+shift+(j%3))%5
+                row[0x3B30D0]=(frame//3+shift)%5
+                row[0x3B30E0]=(frame//3+shift)%5
+                frames[frame]=row
+            return frames,markers
+        f,m=sample(0)
+        g,n=sample(1)
         edges=[dict(left=f"0x{a:06X}",right=f"0x{b:06X}",direct="1")
                for a,b in [(BLOCKS[0],BLOCKS[1]),(BLOCKS[8],BLOCKS[12])]]
         memberships=[dict(block=f"0x{x:06X}",component=1 if i<4 else 2,
