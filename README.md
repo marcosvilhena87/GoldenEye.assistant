@@ -115,3 +115,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Candidate Cross-Session Validation v1.7.1
 
 [Protocolo](docs/SPATIAL_CROSS_SESSION_VALIDATION_V1_7_1.md) e [analisador](tools/validate_spatial_cross_session_v1_7_1.py): cruzamento **sem limite Top-100** dos oito snapshots completos das sessões esquerda/direita da v1.7. Relatórios imutáveis de todos os candidatos que passam à triagem e sondas prioritárias mesmo quando reprovadas. Testes: `python -m unittest tests.test_spatial_cross_session_v1_7_1 -v`. Candidatos não confirmam posição física ou alvo Auto-Aim.
+
+## Spatial Coordinate Candidate Validation v1.7.2
+
+[Protocolo](docs/SPATIAL_COORDINATE_VALIDATION_V1_7_2.md) e [validador](tools/validate_spatial_coordinates_v1_7_2.py): refinamento dos relatórios da v1.7.1 usando filtros relativos de rotação/retorno, limiar de movimento, agrupamento de campos alinhados contíguos e padrões numéricos duplicados. Relatórios exclusivos, sem alterar dados de origem; testes: `python -m unittest tests.test_spatial_coordinates_v1_7_2 -v`. Coordenadas e Auto-Aim seguem não validados.
