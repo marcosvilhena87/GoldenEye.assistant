@@ -69,7 +69,7 @@ def audit(markers,timeline,termination,discontinuities,sid):
   for seq in series.values():
    if end>len(seq) or seq[start-1][1]!=start_frame or seq[end-1][1]!=end_frame:
     raise ValueError("marker/frame mismatch")
-   if any(seq[i-1][2]!=action for i in range(start-1,end-1)):
+   if any(seq[i-1][2]!=action for i in range(start,end)):
     # END sample belongs to NONE; BEGIN..END-1 belongs to the action
     raise ValueError("timeline action mismatch")
    if seq[end-1][2]!="NONE":raise ValueError("phase end not marked inactive")
