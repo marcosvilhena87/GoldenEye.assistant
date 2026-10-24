@@ -62,7 +62,15 @@ def run(session,root):
   if r["address"] not in ADDRS or not re.fullmatch(r"[0-9A-F]{8}",r["raw_be"]):raise ValueError("Malformed sample")
   if r["phase"] not in ("PRESTART",)+PHASES[:-1]:raise ValueError("Unexpected phase")
  if readcsv(folder/(stem+"_discontinuities.csv")):raise ValueError("Discontinuity detected")
- # PRESTART is valid read-only telemetry emitted before BASELINE_HOLD.\n # Never include it in experimental phase metrics.\n first_marker_frame=int(markers[0]["frame"])\n for r in rows:\n  if r["phase"]=="PRESTART" and int(r["frame"])>=first_marker_frame:\n   raise ValueError("PRESTART found after BASELINE_HOLD")\n  if r["phase"]!="PRESTART" and int(r["frame"])<first_marker_frame:\n   raise ValueError("Experimental phase before first marker")\n result=evaluate([r for r in rows if r["phase"]!="PRESTART"])
+ # PRESTART is valid read-only telemetry emitted before BASELINE_HOLD.
+ # Never include it in experimental phase metrics.
+ first_marker_frame=int(markers[0]["frame"])
+ for r in rows:
+  if r["phase"]=="PRESTART" and int(r["frame"])>=first_marker_frame:
+   raise ValueError("PRESTART found after BASELINE_HOLD")
+  if r["phase"]!="PRESTART" and int(r["frame"])<first_marker_frame:
+   raise ValueError("Experimental phase before first marker")
+ result=evaluate([r for r in rows if r["phase"]!="PRESTART"])
  dest=folder/(stem+"_validation.csv")
  with dest.open("x",newline="",encoding="utf-8") as f:
   w=csv.DictWriter(f,fieldnames=FIELDS);w.writeheader();w.writerows(result)
