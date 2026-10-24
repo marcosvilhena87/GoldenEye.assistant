@@ -25,7 +25,11 @@ def examine(session,data,marks,max_lag=32,permutations=199,seed=220):
   frames=range(marks[index],marks[index+1])
   for addr in ADDRS:
    values=[data[f][addr] for f in frames]
-   # Bound expensive permutation tests to a deterministic prefix; all reported\n   # statistics for a lag use the exact same subset.\n   values=values[:min(len(values),512)]\n   n=len(values)\n   if n<max_lag+3:raise ValueError("Phase too short")
+   # Bound expensive permutation tests to a deterministic prefix; all reported
+   # statistics for a lag use the exact same subset.
+   values=values[:min(len(values),512)]
+   n=len(values)
+   if n<max_lag+3:raise ValueError("Phase too short")
    counts=Counter(values)
    expected=sum((v/n)**2 for v in counts.values())
    changes=[values[i]!=values[i-1] for i in range(1,n)]
