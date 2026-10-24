@@ -35,10 +35,12 @@ def classify(vals,min_delta=0.01,hold_ratio=.05,rotate_ratio=.05):
  results=[]
  for start,mid,end,hold in movement:
   delta=end-start
-  threshold=max(min_delta,abs(delta)*.05)
   progress=abs(mid-start)>min_delta*.2 and abs(end-mid)>min_delta*.2 and (mid-start)*(end-mid)>0
   stable=abs(hold-end)<=max(min_delta*.25,abs(delta)*hold_ratio)
   results.append((delta,progress,stable,abs(hold-end)))
+ # A failed hold contaminates the baseline of the next movement segment.
+ # Reject the entire chain rather than accepting a later axis in isolation.
+ if not all(r[2] for r in results):return None
  dl,dr,df,db=[r[0] for r in results]
  lateral=(dl*dr<0 and min(abs(dl),abs(dr))>=min_delta)
  longit=(df*db<0 and min(abs(df),abs(db))>=min_delta)
