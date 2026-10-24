@@ -12,7 +12,7 @@ class DataTypesTests(unittest.TestCase):
  def test_subnormal_detection(self):
   raw=bytes.fromhex("00000001")
   self.assertEqual(float_kind(raw,"big"),"subnormal")
-  self.assertEqual(float_kind(raw,"little"),"subnormal")
+  self.assertEqual(float_kind(raw,"little"),"normal")
  def test_nonfinite(self):
   d=interpret(bytes.fromhex("7F800000"))
   self.assertIsNone(d["float_be"])
