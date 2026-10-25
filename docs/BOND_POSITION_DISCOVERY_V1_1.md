@@ -24,3 +24,10 @@ Sender writes one immutable session-tagged command; wait for MARKED before sendi
 
 ## Validation gate
 A coordinate claim requires repeated independent real-world movement, stationary and pure-rotation negative controls, return behavior, held-write persistence, cross-session stability and ROM/core identification. Do not promote mapping symbol or feed movement automation based on this v1.1 alone.
+
+## Analysis (after collector prints DONE)
+```powershell
+$sid=(Get-Content .\output\sessions\bond_position_v1_1_session.txt -Raw).Trim()
+python -m tools.analyze_bond_position_v1_1 $sid
+```
+Produces `output/csv/bond_position_v1_1_<sid>_analysis.json` with phase/offset range, first/last, distinct values, KSEG alias mismatches, termination and **explicitly false** axis/write-validation flags. The analyzer refuses to overwrite previous reports. An absence of STOP or a savestate-related timeline discontinuity must be reported, not silently ignored.
