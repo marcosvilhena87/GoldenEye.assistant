@@ -95,7 +95,9 @@ while true do
  local err=rel and principal(targetDeg-rel) or nil
  local cumulative_remaining=valid and (target-total) or nil
  local norm=x and y and x*x+y*y or nil
- samples:write(table.concat({sid,emu.framecount(),seq-1,target,string.format("%08X",rawx),string.format("%08X",rawy),csvnum(x),csvnum(y),csvnum(norm),valid and "1" or "0",csvnum(angle),csvnum(ref),csvnum(rel),csvnum(err),csvnum(total),csvnum(cumulative_remaining),csvnum(step),reset_reason},",").."\n")\n if emu.framecount()%30==0 then samples:flush() end\n gui.text(8,18,"Bond Heading HUD v1.9.5 (EXPERIMENTAL)")
+ samples:write(table.concat({sid,emu.framecount(),seq-1,target,string.format("%08X",rawx),string.format("%08X",rawy),csvnum(x),csvnum(y),csvnum(norm),valid and "1" or "0",csvnum(angle),csvnum(ref),csvnum(rel),csvnum(err),csvnum(total),csvnum(cumulative_remaining),csvnum(step),reset_reason},",").."\n")
+ if emu.framecount()%30==0 then samples:flush() end
+ gui.text(8,18,"Bond Heading HUD v1.9.5 (EXPERIMENTAL)")
  gui.text(8,32,string.format("Vector: %s",valid and "VALID" or "INVALID"))
  gui.text(8,46,string.format("X: %s   Y: %s",x and string.format("%.6f",x) or "?",y and string.format("%.6f",y) or "?"))
  gui.text(8,60,string.format("x^2+y^2: %s",norm and string.format("%.9f",norm) or "?"))
