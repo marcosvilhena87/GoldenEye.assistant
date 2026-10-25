@@ -135,3 +135,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Spatial Position Discovery v1.8
 
 [Protocolo experimental](docs/SPATIAL_POSITION_DISCOVERY_V1_8.md), [coletor de snapshots completos](spatial_position_discovery_v1_8.lua), [sender sequencial](tools/send_spatial_v1_8.py), [scanner RDRAM](tools/analyze_spatial_position_v1_8.py) e [testes](tests/test_spatial_position_discovery_v1_8.py). Retoma a procura pela posição física de Bond em toda a RDRAM de 8 MiB, utilizando 14 capturas etiquetadas manualmente de posições intermediárias, finais, repouso e rotação. Captura dependente da confirmação explícita do operador; não lê botões pressionados nem prova deslocamento por si só. Saídas experimentais e somente leitura; sem mapeamento ou geometria validada.
+
+## Bond–Soldier Coordinate Correlation v1.8.2
+
+[Protocolo experimental v1.8.2](docs/BOND_SOLDIER_COORDINATE_CORRELATION_V1_8_2.md): coletor `bond_soldier_coordinate_correlation_v1_8_2.lua` exclusivamente **read-only** registra os quatro campos candidatos de Bond (incluindo controles) e dois novos candidatos do Soldier #1 por frame, com aliases KSEG0/KSEG1 e marcadores controlados. `python -m tools.analyze_bond_soldier_v1_8_2 SESSION` identifica mudanças por frames efetivos, sem depender do marcador WRITE_APPLIED. Testes em `tests/test_bond_soldier_v1_8_2.py`. Nenhum eixo, offset do soldado ou localização física é considerado validado, e os arquivos da v1.3 permanecem intactos.
