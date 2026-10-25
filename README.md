@@ -207,3 +207,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond–AI Causality v1.8.17 — Freeze Integrity & Behavioral Correlation
 
 [Protocolo offline](docs/BOND_AI_FREEZE_BEHAVIOR_V1_8_17.md): `tools/audit_bond_ai_freeze_v1_8_17.py` audita mudanças RAW por fase, constância de A ao longo do Freeze e o primeiro evento numérico de liberação de A, com anotações visuais opcionais e testes em `tests/test_bond_ai_freeze_v1_8_17.py`. Não infere automaticamente causalidade da IA.
+
+## Bond Heading Discovery v1.9
+
+[Protocolo experimental](docs/BOND_HEADING_DISCOVERY_V1_9.md): coletor `bond_heading_discovery_v1_9.lua`, sender `tools/send_bond_heading_v1_9.py`, analisador `tools/analyze_bond_heading_v1_9.py`, testes `tests/test_bond_heading_v1_9.py`. Prioriza variações durante giros comparadas a translação/imobilidade; `0x0D3998`, `0x0D3D40` permanecem candidatos. Não valida heading/escala angular.
