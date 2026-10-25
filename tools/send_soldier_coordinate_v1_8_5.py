@@ -17,6 +17,7 @@ def send(label, root=None):
             f.write("LABEL:"+label+"\n");f.flush();os.fsync(f.fileno())
         for n in range(1,10000):
             target=directory/f"soldier_coordinate_v1_8_5_{sid}_{n:04d}.txt"
+            if target.exists():continue
             try:
                 os.rename(temp,target)
                 return target
