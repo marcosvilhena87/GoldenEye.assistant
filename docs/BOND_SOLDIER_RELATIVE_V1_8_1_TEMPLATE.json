@@ -1,0 +1,47 @@
+{
+  "protocol": "bond_soldier_relative_v1_8_1",
+  "runs": [
+    {
+      "bond_session": "20261025T025126Z_942158",
+      "bond_target": "0x0D33F4",
+      "heading_degrees_clockwise": 90,
+      "freeze": {
+        "cheat_name": "Freeze All Enemies Alive",
+        "indicator_candidate": "0x02C90C",
+        "on_verified_before": false,
+        "on_verified_after": false,
+        "no_toggle_during_trial": false,
+        "enemy_identity_stable": false
+      },
+      "soldier": {
+        "id": "UNVERIFIED",
+        "candidate": "UNVERIFIED",
+        "source": "unverified",
+        "coordinate_candidate_independently_validated": false,
+        "before": {
+          "u": 0,
+          "v": 0
+        },
+        "after": {
+          "u": 0,
+          "v": 0
+        }
+      },
+      "max_stationarity_drift": 0,
+      "bond_in_soldier_frame": {
+        "independent_measurement": false,
+        "derived_from_ec_f4": false,
+        "frame_matches_soldier": false,
+        "before": {
+          "u": 0,
+          "v": 0
+        },
+        "after": {
+          "u": 0,
+          "v": 0
+        }
+      },
+      "notes": "All numeric points illustrative placeholders only. This run is NOT eligible until separately measured."
+    }
+  ]
+}
