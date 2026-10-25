@@ -11,7 +11,7 @@ class TestIdentityFreeze(unittest.TestCase):
      for o in ("0x06A120","0x20F578","0x20F594","0x20F5AC","0x20F580","0x06A128"):
       w.writerow(["demo",n,"FREEZE_REQUEST_ON",o,"3F800000" if n<3 else "40000000",int(n==3)])
    Path(str(stem)+"_markers.csv").write_text("session,frame,label\ndemo,2,FREEZE_REQUEST_ON\ndemo,9,STOP\n")
-   Path(str(stem)+"_termination.csv").write_text("session,9,stop\n")
+   Path(str(stem)+"_termination.csv").write_text("session,frame,reason\ndemo,9,stop\n")
    result=analyze("demo",root,quiet_frames=3)
    self.assertTrue(result["capture_complete"])
    self.assertTrue(result["freeze_episodes"][0]["fields"]["0x20F594"]["quiet_window_observed"])
