@@ -65,7 +65,8 @@ local function poll()
  elseif cmd=="STOP" then events:write(string.format("%s,%d,%d,STOP,%d,%s,%s\n",sid,emu.framecount(),seq,target,csvnum(ref),csvnum(total)));events:flush();termination:write(string.format("%s,%d,stop\n",sid,emu.framecount()));termination:close();events:close();samples:close();print("[bond.heading.hud.v1.9.5] STOPPED");return true
  end
  if not ok then error("Unrecognized HUD command: "..cmd) end
- events:write(string.format("%s,%d,%d,%s,%d,%s,%s\n",sid,emu.framecount(),seq,cmd,target,csvnum(ref),csvnum(total)));events:flush()\n print("[bond.heading.hud.v1.9.5] ACK "..cmd.." frame="..emu.framecount())
+ events:write(string.format("%s,%d,%d,%s,%d,%s,%s\n",sid,emu.framecount(),seq,cmd,target,csvnum(ref),csvnum(total)));events:flush()
+ print("[bond.heading.hud.v1.9.5] ACK "..cmd.." frame="..emu.framecount())
  seq=seq+1
  return false
 end
