@@ -175,3 +175,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Soldier Coordinate Discovery v1.8.9 — Dual-Axis Distance Convergence
 
 [Análise offline e protocolo](docs/SOLDIER_DUAL_AXIS_DISTANCE_V1_8_9.md): `tools/analyze_soldier_dual_axis_v1_8_9.py` utiliza os CSVs existentes da v1.8.8.1 para calcular a distância candidata bidimensional **no mesmo frame** entre pares hipotéticos de Bond e Soldier #1. Compara configurações históricas, alternativas e aliases; não comprova eixos X/Z, distância física ou identidade de entidade. Testes sintéticos em `tests/test_soldier_dual_axis_v1_8_9.py`. Os endereços permanecem experimentais.
+
+## Soldier Coordinate Discovery v1.8.10 — Frozen Soldier / Bond-only Motion
+
+[Protocolo](docs/SOLDIER_FROZEN_BOND_MOTION_V1_8_10.md). Coletor `soldier_frozen_bond_motion_v1_8_10.lua` e emissor `tools/send_soldier_frozen_v1_8_10.py` anotam FREEZE confirmado visualmente, Bond aproximando/recuando, parada proxima/distante e rotacao sem translacao. Analisador `tools/analyze_soldier_frozen_v1_8_10.py` compara distancia hipotetica em dois componentes por frame e exige constancia dos campos do soldado durante todas as fases pos-Freeze para sinalizar convergencia controlada. Testes sinteticos em `tests/test_soldier_frozen_v1_8_10.py`. Ainda nao valida coordenadas fisicas X/Z, identidade ou estabilidade entre saves.
