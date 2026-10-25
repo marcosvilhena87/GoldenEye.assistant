@@ -6,11 +6,11 @@ class FrozenMotionTests(unittest.TestCase):
   phases=("FROZEN_BASELINE","BOND_APPROACH","BOND_STOP_NEAR","BOND_ROTATE","BOND_RETREAT","BOND_STOP_FAR")
   with path.open("w",newline="") as f:
    w=csv.writer(f);w.writerow(("session","frame","phase","offset_hex","raw_be","changed"))
-   for n in range(120):
+   for n in range(240):
     phase=phases[n//20];step=n%20
-    positions=((0.0,0.0),(step*4.0,step*4.0),(80.0,80.0),(80.0,80.0),(80-step*4.0,80-step*4.0),(0.0,0.0))
+    positions=((0.0,0.0),(step*2.0,step*4.0),(80.0,80.0),(80.0,80.0),(80-step*2.0,80-step*4.0),(0.0,0.0))
     ba,bb=positions[n//20]
-    sx=100.0+(1.0 if drifting and n>=80 else 0.0)
+    sx=100.0+(1.0 if drifting and n>=160 else 0.0)
     fields={0x06D248:ba,0x06D250:bb,0x0D33EC:ba,0x0D33F4:bb,
       0x20F594:sx,0x20F5AC:100.0,0x20F578:sx,0x20F580:100.0,0x06A120:sx,0x06A128:100.0}
     for off,value in fields.items():
@@ -19,8 +19,8 @@ class FrozenMotionTests(unittest.TestCase):
   root=Path(d);stem=root/"soldier_frozen_v1_8_10_demo"
   self.fixture(Path(str(stem)+"_timeline.csv"),drifting)
   Path(str(stem)+"_markers.csv").write_text("session,frame,label\n")
-  Path(str(stem)+"_termination.csv").write_text("session,frame,reason\ndemo,120,stop\n")
-  return analyze("demo",root,minimum_frames=10) if False else analyze("demo",root)
+  Path(str(stem)+"_termination.csv").write_text("session,frame,reason\ndemo,240,stop\n")
+  return analyze("demo",root)
  def test_stable_soldier_and_bond_convergence(self):
   with tempfile.TemporaryDirectory() as d:
    report=self.run_fixture(d,False)
