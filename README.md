@@ -203,3 +203,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond–AI causal decoupling v1.8.16
 
 [Protocolo](docs/BOND_AI_CAUSALITY_V1_8_16.md): coletor de RDRAM somente leitura `bond_ai_causality_v1_8_16.lua`, sender `tools/send_bond_ai_causality_v1_8_16.py`, análise `tools/analyze_bond_ai_causality_v1_8_16.py`, testes `tests/test_bond_ai_causality_v1_8_16.py`. Congelamento manual apenas de A e liberação com Bond parado para investigar causalidade da perseguição. Eixos e relações funcionais permanecem hipóteses.
+
+## Bond–AI Causality v1.8.17 — Freeze Integrity & Behavioral Correlation
+
+[Protocolo offline](docs/BOND_AI_FREEZE_BEHAVIOR_V1_8_17.md): `tools/audit_bond_ai_freeze_v1_8_17.py` audita mudanças RAW por fase, constância de A ao longo do Freeze e o primeiro evento numérico de liberação de A, com anotações visuais opcionais e testes em `tests/test_bond_ai_freeze_v1_8_17.py`. Não infere automaticamente causalidade da IA.
