@@ -7,9 +7,9 @@ class FrozenMotionTests(unittest.TestCase):
   with path.open("w",newline="") as f:
    w=csv.writer(f);w.writerow(("session","frame","phase","offset_hex","raw_be","changed"))
    for n in range(240):
-    phase=phases[n//20];step=n%20
-    positions=((0.0,0.0),(step*2.0,step*4.0),(80.0,80.0),(80.0,80.0),(80-step*2.0,80-step*4.0),(0.0,0.0))
-    ba,bb=positions[n//20]
+    phase=phases[n//40];step=n%40
+    positions=((0.0,0.0),(step*2.0,step*2.0),(80.0,80.0),(80.0,80.0),(80-step*2.0,80-step*2.0),(0.0,0.0))
+    ba,bb=positions[n//40]
     sx=100.0+(1.0 if drifting and n>=160 else 0.0)
     fields={0x06D248:ba,0x06D250:bb,0x0D33EC:ba,0x0D33F4:bb,
       0x20F594:sx,0x20F5AC:100.0,0x20F578:sx,0x20F580:100.0,0x06A120:sx,0x06A128:100.0}
