@@ -171,3 +171,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Soldier Coordinate Discovery v1.8.8.2 — Bond proximity convergence
 
 [Protocolo de convergencia](docs/SOLDIER_PROXIMITY_CONVERGENCE_V1_8_8_2.md) e analisador offline `tools/analyze_soldier_proximity_v1_8_8_2.py`: reusa capturas da v1.8.8.1, comparando a diferenca absoluta escalar entre candidatos de Bond e Soldier #1 durante `BOND_APPROACH` e `BOND_RETREAT`. Exige interpretacao cautelosa: aproximacao numerica nao prova distancia fisica 2D/3D, coordenadas mundiais ou identidade do soldado. Teste sintetico: `tests/test_soldier_proximity_v1_8_8_2.py`.
+
+## Soldier Coordinate Discovery v1.8.9 — Dual-Axis Distance Convergence
+
+[Análise offline e protocolo](docs/SOLDIER_DUAL_AXIS_DISTANCE_V1_8_9.md): `tools/analyze_soldier_dual_axis_v1_8_9.py` utiliza os CSVs existentes da v1.8.8.1 para calcular a distância candidata bidimensional **no mesmo frame** entre pares hipotéticos de Bond e Soldier #1. Compara configurações históricas, alternativas e aliases; não comprova eixos X/Z, distância física ou identidade de entidade. Testes sintéticos em `tests/test_soldier_dual_axis_v1_8_9.py`. Os endereços permanecem experimentais.
