@@ -1,0 +1,90 @@
+{
+  "protocol": "bond_world_axis_v1_7",
+  "warning": "Historical movements are screen-relative, not independent world vectors. Do not fabricate world_displacement.",
+  "runs": [
+    {
+      "session": "20261025T021929Z_971338",
+      "target": "0x0D33EC",
+      "heading_degrees_clockwise": 0,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "esquerda",
+      "expected_float32_delta": 128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    },
+    {
+      "session": "20261025T023038Z_953512",
+      "target": "0x0D33EC",
+      "heading_degrees_clockwise": 180,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "direita",
+      "expected_float32_delta": 128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    },
+    {
+      "session": "20261025T024811Z_941631",
+      "target": "0x0D33EC",
+      "heading_degrees_clockwise": 90,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "tras",
+      "expected_float32_delta": 128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    },
+    {
+      "session": "20261025T023714Z_940197",
+      "target": "0x0D33F4",
+      "heading_degrees_clockwise": 0,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "tras",
+      "expected_float32_delta": -128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    },
+    {
+      "session": "20261025T024117Z_941298",
+      "target": "0x0D33F4",
+      "heading_degrees_clockwise": 180,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "frente",
+      "expected_float32_delta": -128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    },
+    {
+      "session": "20261025T025126Z_942158",
+      "target": "0x0D33F4",
+      "heading_degrees_clockwise": 90,
+      "heading_independently_verified": false,
+      "same_world_start_confirmed": false,
+      "reference_type": "screen_relative_only",
+      "screen_observation": "direita",
+      "expected_float32_delta": -128,
+      "world_displacement": null,
+      "landmark_or_map_method": "",
+      "camera_rotation_during_write": null,
+      "collision_or_snap": null
+    }
+  ]
+}
