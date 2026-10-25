@@ -1,0 +1,55 @@
+{
+  "protocol": "bond_landmark_v1_8",
+  "observation_source": "NOT_YET_VERIFIED",
+  "bond_coordinates_derived_from_ec_f4": false,
+  "fixed_map_and_scale_verified": false,
+  "max_anchor_rmse_world_units": 0.5,
+  "landmarks": [
+    {
+      "id": "L1",
+      "pixel": {
+        "x": 0,
+        "y": 0
+      },
+      "world": {
+        "east": 0,
+        "north": 0
+      }
+    },
+    {
+      "id": "L2",
+      "pixel": {
+        "x": 100,
+        "y": 0
+      },
+      "world": {
+        "east": 10,
+        "north": 0
+      }
+    },
+    {
+      "id": "L3",
+      "pixel": {
+        "x": 0,
+        "y": 100
+      },
+      "world": {
+        "east": 0,
+        "north": 10
+      }
+    },
+    {
+      "id": "L4",
+      "pixel": {
+        "x": 100,
+        "y": 100
+      },
+      "world": {
+        "east": 10,
+        "north": 10
+      }
+    }
+  ],
+  "observations": [],
+  "notes": "Landmark positions above are ILLUSTRATIVE ONLY and must be replaced with independently surveyed data. Do not change flags to true unless substantiated. No Bond location is inferable from FPS screen without a verified spatial solution."
+}
