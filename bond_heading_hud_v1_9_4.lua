@@ -24,8 +24,8 @@ local function float32(o)
  local exponent=math.floor(u/8388608)%256
  local mantissa=u%8388608
  if exponent==255 then return nil end
- if exponent==0 then return sign*math.ldexp(mantissa/8388608,-126) end
- return sign*math.ldexp(1+mantissa/8388608,exponent-127)
+ if exponent==0 then return sign*(mantissa/8388608)*2^(-126) end
+ return sign*(1+mantissa/8388608)*2^(exponent-127)
 end
 local function principal(deg) return ((deg+180)%360)-180 end
 local function poll()
