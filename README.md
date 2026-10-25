@@ -211,3 +211,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading Discovery v1.9
 
 [Protocolo experimental](docs/BOND_HEADING_DISCOVERY_V1_9.md): coletor `bond_heading_discovery_v1_9.lua`, sender `tools/send_bond_heading_v1_9.py`, analisador `tools/analyze_bond_heading_v1_9.py`, testes `tests/test_bond_heading_v1_9.py`. Prioriza variações durante giros comparadas a translação/imobilidade; `0x0D3998`, `0x0D3D40` permanecem candidatos. Não valida heading/escala angular.
+
+## Bond Heading Discovery v1.9.1
+
+[Protocolo](docs/BOND_HEADING_DISCOVERY_V1_9_1.md) com auditoria retrospectiva de v1.9, observador Lua direcionado a `0x0D33F8` e seus vizinhos, comparações de pares de vetores, fases controladas de giro/retorno e testes. Sem promoção de símbolos nem automação de rotação.
