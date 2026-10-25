@@ -159,3 +159,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Soldier Coordinate Discovery v1.8.7 — Entity Spatial Identity & Freeze Timing
 
 [Protocolo](docs/SOLDIER_ENTITY_IDENTITY_V1_8_7.md): observador somente leitura `soldier_entity_identity_v1_8_7.lua`, emissor `tools/send_soldier_identity_v1_8_7.py` e analisador offline `tools/analyze_soldier_identity_v1_8_7.py`. Marcadores distintos para pedido, confirmacao visual e reversao do Freeze; pares duplicados e janelas retrospectivas de estabilidade. Testes sinteticos em `tests/test_soldier_identity_v1_8_7.py`. Identidade, XYZ e persistencia entre saves nao validadas.
+
+## Soldier Coordinate Discovery v1.8.8 — Directional Axis Identification
+
+[Protocolo v1.8.8](docs/SOLDIER_DIRECTIONAL_AXIS_V1_8_8.md): monitor read-only `soldier_directional_axis_v1_8_8.lua`, emissor `tools/send_soldier_direction_v1_8_8.py` e analisador `tools/analyze_soldier_direction_v1_8_8.py`. Compara respostas a direcoes opostas A+/A-, B+/B-, controles de rotacao/movimento de Bond e imobilidade. Testes `tests/test_soldier_direction_v1_8_8.py`. Direcoes sao anotacoes de operador, nao eixos de mundo validados. Nao promove offsets a simbolos.
