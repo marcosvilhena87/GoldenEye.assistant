@@ -23,7 +23,7 @@ local function fresh(path,header)
  return f
 end
 local samples=fresh(stem.."_samples.csv","session,frame,command_seq,target_deg,x_raw,y_raw,x,y,norm_squared,valid,angle_deg,reference_deg,relative_deg,error_deg,cumulative_deg,cumulative_remaining_deg,step_deg,reset_reason")
-local events=fresh(stem.."_events.csv","session,frame,seq,event,target_deg,angle_deg,cumulative_deg")
+local events=fresh(stem.."_events.csv","session,frame,seq,event,target_deg,reference_deg,cumulative_deg")
 local termination=fresh(stem.."_termination.csv","session,frame,reason")
 local function csvnum(v) if v==nil then return "" end return string.format("%.12g",v) end
 local function raw32(o)
