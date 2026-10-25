@@ -67,8 +67,14 @@ for tick=1,MAX do
  local f=io.open(cmd,"rb")
  if f then
   local body=f:read("*a");f:close()
-  local session,label=body:match("^SESSION:([^\n]+)\nLABEL:([A-Z_0-9]+)\n$")
-  if session~=sid or not LABELS[label] then reason="invalid_marker";break end
+  -- Normalize Windows CRLF and optional UTF-8 BOM; keep strict two-line schema.
+  local normalized=body:gsub("^\239\187\191",""):gsub("\r\n","\n"):gsub("\r","\n")
+  local session,label=normalized:match("^SESSION:([^\n]+)\nLABEL:([A-Z_0-9]+)\n?$")
+  if session~=sid or not LABELS[label] then
+   local msg=string.format("[bond.v1.3] INVALID_MARKER seq=%d path=%s bytes=%d parsed_session=%s parsed_label=%s expected_session=%s",seq,cmd,#body,tostring(session),tostring(label),sid)
+   print(msg)
+   reason="invalid_marker";break
+  end
   phase=label;marker_event=label
   if label=="TARGET_EC" then target="0x0D33EC" end
   if label=="TARGET_F4" then target="0x0D33F4" end
