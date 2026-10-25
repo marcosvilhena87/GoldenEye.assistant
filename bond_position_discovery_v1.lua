@@ -1,5 +1,5 @@
--- Bond Position Discovery v1.0.2 - read-only, emulator API diagnostics
-local DOMAIN="RDRAM"
+-- Bond Position Discovery v1.0.3 - read-only, emulator API diagnostics
+local DOMAIN_OVERRIDE=nil -- set to an EXACT domain name after inspection if needed
 local BASE=0x0D33E8
 local LAST=0x0D33F0
 local function available(t,k)
@@ -8,32 +8,42 @@ local function available(t,k)
   return ok and v~=nil and (type(v)=="function" or type(v)=="userdata")
 end
 local function report(s) if available(console,"log") then console.log(s) else print(s) end end
-local read8,source
-if available(memory,"read_u8") and available(memory,"getmemorydomainlist") then
-  local found=false
-  for _,name in ipairs(memory.getmemorydomainlist()) do
-    if name==DOMAIN then found=true end
+assert(available(memory,"getmemorydomainlist") and available(memory,"getmemorydomainsize"),
+  "Cannot enumerate memory domains; check the BizHawk Lua Console")
+local domains=memory.getmemorydomainlist()
+local names={}
+local eligible={}
+local selected=nil
+for _,name in ipairs(domains) do
+  local ok,size=pcall(memory.getmemorydomainsize,name)
+  local desc=tostring(name).."("..(ok and tostring(size) or "?").." bytes)"
+  names[#names+1]=desc
+  if ok and type(size)=="number" and size>=LAST then
+    if name=="RDRAM" then selected=name end
+    if type(name)=="string" and name:upper():find("RDRAM",1,true) then
+      eligible[#eligible+1]=name
+    end
   end
-  assert(found,"RDRAM missing: confirm domain name in BizHawk Lua Console")
-  assert(available(memory,"getmemorydomainsize") and memory.getmemorydomainsize(DOMAIN)>=LAST,
-    "RDRAM size too small or memory domain size API missing")
-  read8=function(addr) return memory.read_u8(addr,DOMAIN) end
-  source="memory.read_u8/RDRAM"
-elseif available(memory,"readbyte") and available(memory,"getmemorydomainlist") then
-  local found=false
-  for _,name in ipairs(memory.getmemorydomainlist()) do if name==DOMAIN then found=true end end
-  assert(found,"RDRAM domain missing")
-  read8=function(addr) return memory.readbyte(addr,DOMAIN) end
-  source="memory.readbyte/RDRAM"
-elseif available(mainmemory,"read_u8") then
-  -- Main memory may or may not be the Cheat Search RDRAM domain.
-  error("Only mainmemory.read_u8 available. Refusing to assume its offset mapping equals Cheat Search RDRAM. Confirm emulator/core and domain before proceeding.")
-else
-  error("No compatible RDRAM byte-read API. memory.read_u8="..tostring(memory and type(memory.read_u8))..
-    ", memory.readbyte="..tostring(memory and type(memory.readbyte))..
-    ", mainmemory.read_u8="..tostring(mainmemory and type(mainmemory.read_u8))..
-    ". Load this script from BizHawk Lua Console with N64 ROM running; verify API availability.")
 end
+report("[bond.position.v1.0.3] Available memory domains: "..table.concat(names,", "))
+if DOMAIN_OVERRIDE then
+  selected=nil
+  for _,name in ipairs(domains) do
+    if name==DOMAIN_OVERRIDE and memory.getmemorydomainsize(name)>=LAST then selected=name end
+  end
+  assert(selected,"DOMAIN_OVERRIDE not found or insufficient size: "..tostring(DOMAIN_OVERRIDE))
+elseif not selected then
+  if #eligible==1 then selected=eligible[1] end
+end
+assert(selected,
+  "No unique RDRAM domain. Inspect console domain list; if Cheat Search mapping is confirmed, set DOMAIN_OVERRIDE to the EXACT listed name.")
+assert(available(memory,"read_u8") or available(memory,"readbyte"),
+  "Neither memory.read_u8 nor memory.readbyte available")
+local reader=available(memory,"read_u8") and memory.read_u8 or memory.readbyte
+local read8=function(addr) return reader(addr,selected) end
+local source="memory/"..selected
+report("[bond.position.v1.0.3] Selected domain="..selected..
+       " size="..tostring(memory.getmemorydomainsize(selected)))
 assert(type(emu)=="table" and available(emu,"frameadvance") and available(emu,"framecount"),"emu frame API unavailable")
 local sid=os.date("!%Y%m%dT%H%M%SZ").."_"..tostring(emu.framecount())
 local path="output/csv/bond_position_v1_"..sid..".csv"
@@ -49,8 +59,8 @@ local function read16(addr)
  assert(type(a)=="number" and type(b)=="number" and a>=0 and a<256 and b>=0 and b<256,"Invalid byte read")
  return a*256+b,b*256+a,string.format("%02X%02X",a,b)
 end
-report("[bond.position.v1.0.1] read-only; source="..source.." file="..path)
-report("[bond.position.v1.0.1] label BASELINE is generic; annotate external interventions with frames.")
+report("[bond.position.v1.0.3] read-only; source="..source.." file="..path)
+report("[bond.position.v1.0.3] label BASELINE is generic; annotate external interventions with frames.")
 while true do
  local frame=emu.framecount()
  for addr=BASE,LAST-2,2 do
