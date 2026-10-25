@@ -235,3 +235,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.6 — Physical Controls
 
 [Experimental protocol](docs/BOND_HEADING_HUD_V1_9_6.md): `bond_heading_hud_v1_9_6.lua` labels movement/aim/weapon/camera/landmark controls and records per-frame angles; `tools/audit_bond_heading_hud_v1_9_6.py` audits phases and multiple sessions; the sender remains read-only to game/controller state. Physical heading not yet validated.
+
+## Bond Heading v1.9.7 — Camera, Body & Weapon Aim Separation
+
+[Protocol](docs/BOND_HEADING_HUD_V1_9_7.md) with `bond_heading_hud_v1_9_7.lua`, `tools/send_bond_heading_hud_v1_9_7.py`, and `tools/audit_bond_heading_hud_v1_9_7.py`. Separate horizontal/vertical C-Button, R+analog reticle, Auto-Aim, weapon and translation phases; records candidate normalized heading and auxiliary raw probes, no physical semantic promotion.
