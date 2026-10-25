@@ -41,8 +41,8 @@ def audit(sid,root=Path("output/csv")):
   if direct_prev and av!=pair(n-1,A) and bv==pair(n-1,B):a_leads=True
   if direct_prev and bv!=pair(n-1,B) and av==pair(n-1,A):b_leads=True
   if direct_next:
-   if a_leads and bv==pair(n+1,B) and av==bv:labels.append("A_leads_B_one_frame")
-   if b_leads and av==pair(n+1,A) and bv==av:labels.append("B_leads_A_one_frame")
+   if a_leads and av==pair(n+1,B):labels.append("A_leads_B_one_frame")
+   if b_leads and bv==pair(n+1,A):labels.append("B_leads_A_one_frame")
   return labels
  mismatches=[]
  for n in valid:
