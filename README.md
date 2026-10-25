@@ -247,3 +247,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.8 — Camera Pitch & Reticle Offset Discovery
 
 [Experiment protocol](docs/BOND_HEADING_HUD_V1_9_8.md). C-Up/Down shifts camera pitch with hidden centered reticle; R+analog vertical changes camera pitch and visible reticle. The read-only HUD collects the known horizontal candidate plus raw and decoded auxiliary float candidates; the audit compares phase response without asserting physical addresses.
+
+## Bond Heading v1.9.9 — Temporal Signal Analysis
+
+[Read-only temporal audit protocol](docs/BOND_HEADING_HUD_V1_9_9.md) and scripts `bond_heading_hud_v1_9_9.lua`, `tools/send_bond_heading_hud_v1_9_9.py`, `tools/audit_bond_heading_hud_v1_9_9.py` can capture new sessions or retrospectively audit v1.9.8 CSV files. No address semantic promotion.
