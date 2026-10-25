@@ -187,3 +187,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Soldier Coordinate Discovery v1.8.12 — Rotation vs Translation
 
 [Protocolo experimental](docs/SOLDIER_BOND_MOTION_V1_8_12.md): monitor somente leitura `soldier_bond_motion_v1_8_12.lua`, emissor `tools/send_soldier_motion_v1_8_12.py`, analisador `tools/analyze_soldier_motion_v1_8_12.py` e testes `tests/test_soldier_motion_v1_8_12.py`. Com Soldier #1 congelado, coleta rotação esquerda/direita, caminhada frente/trás e controles parados. Separa resposta por campo e fase, testa invariância dos candidatos do soldado e igualdade entre aliases. Não confirma direção física, auto-aim, XYZ nem identidade de entidade.
+
+## Soldier Coordinate Discovery v1.8.13 — Bond Position Candidate Validation
+
+[Protocolo](docs/BOND_POSITION_VALIDATION_V1_8_13.md) — `bond_position_validation_v1_8_13.lua`, `tools/send_bond_position_v1_8_13.py`, `tools/analyze_bond_position_v1_8_13.py`, `tools/compare_bond_position_v1_8_13.py`, testes em `tests/test_bond_position_v1_8_13.py`. Com soldado congelado, compara origem, giros, avancos, recuos e dois retornos à origem; avalia aliases e invariancia dos campos do soldado, mantendo coordenadas X/Z como hipoteses.
