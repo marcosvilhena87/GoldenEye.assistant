@@ -27,6 +27,15 @@ local function float32(o)
  if exponent==0 then return sign*(mantissa/8388608)*2^(-126) end
  return sign*(1+mantissa/8388608)*2^(exponent-127)
 end
+-- Portable atan2 for NLua/Lua runtimes without math.atan2.
+local function atan2_compat(y,x)
+ if x>0 then return math.atan(y/x) end
+ if x<0 and y>=0 then return math.atan(y/x)+math.pi end
+ if x<0 and y<0 then return math.atan(y/x)-math.pi end
+ if x==0 and y>0 then return math.pi/2 end
+ if x==0 and y<0 then return -math.pi/2 end
+ return nil -- undefined at origin
+end
 local function principal(deg) return ((deg+180)%360)-180 end
 local function poll()
  local path=string.format("%s%04d.txt",prefix,seq)
@@ -54,7 +63,7 @@ while true do
  local x,y=float32(X),float32(Y)
  local valid=x and y and x==x and y==y and math.abs(x*x+y*y-1)<0.02
  local angle=nil
- if valid then angle=math.deg(math.atan2(y,x)) end
+ if valid then local rad=atan2_compat(y,x); if rad then angle=math.deg(rad) else valid=false end end
  if not valid then prev=nil end
  if valid and angle then
   if not ref then ref=angle;total=0;prev=angle
