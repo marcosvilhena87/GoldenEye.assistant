@@ -39,6 +39,7 @@ def scan(snapshots,limit=150,near=5000.0):
     if len({len(x) for x in (base,rot,bond,moving,frozen)})!=1:raise ValueError("sizes differ")
     anchors=[]
     for offset in ANCHORS:
+        if offset+4>len(base):continue
         for fmt in (">f","<f"):
             x=struct.unpack_from(fmt,base,offset)[0]
             if math.isfinite(x) and 1.0<abs(x)<1e7:anchors.append({"offset":f"0x{offset:06X}","format":fmt,"value":x})
