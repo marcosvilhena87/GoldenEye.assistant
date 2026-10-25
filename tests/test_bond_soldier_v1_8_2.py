@@ -27,5 +27,24 @@ class CorrelationV182Tests(unittest.TestCase):
             self.assertFalse(r["physical_position_correlation_validated"])
             self.assertFalse(r["canonical_axes_validated"])
 
+    def test_trailing_incomplete_frame_is_reported(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sid = "partial"
+            stem = root / ("bond_soldier_v1_8_2_" + sid)
+            fields = ["bond_e8","bond_ec","bond_f0","bond_f4","soldier_1_a","soldier_1_b"]
+            with Path(str(stem)+"_timeline.csv").open("w", newline="") as out:
+                writer=csv.writer(out)
+                writer.writerow(["session","frame","phase","field","offset_hex","kseg0_hex","kseg1_hex","float32_be","alias_equal","changed"])
+                for frame in (100,101):
+                    for field in (fields if frame == 100 else fields[:2]):
+                        writer.writerow([sid,frame,"BASELINE",field,"0x000000","469DCB48","469DCB48","20197.6406",1,0])
+            Path(str(stem)+"_markers.csv").write_text("session,frame,label\\n",encoding="utf-8")
+            Path(str(stem)+"_termination.csv").write_text("session,frame,reason\\n",encoding="utf-8")
+            report=analyze(sid,root)
+            self.assertEqual(report["frames"],1)
+            self.assertEqual(report["incomplete_frames"][0]["frame"],101)
+            self.assertFalse(report["capture_complete"])
+
 if __name__=="__main__":
     unittest.main()
