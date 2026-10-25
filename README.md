@@ -199,3 +199,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Position v1.8.15 — Alias Update Ordering
 
 [Auditoria offline](docs/BOND_ALIAS_ORDERING_V1_8_15.md): `tools/audit_bond_alias_v1_8_15.py` classifica frames divergentes dos vetores A/B, examina atualizações condicionadas a mudanças e diagnósticos A_first/B_first; testes `tests/test_bond_alias_v1_8_15.py`. Não promove hipóteses ao GoldenEye.mapping.
+
+## Bond–AI causal decoupling v1.8.16
+
+[Protocolo](docs/BOND_AI_CAUSALITY_V1_8_16.md): coletor de RDRAM somente leitura `bond_ai_causality_v1_8_16.lua`, sender `tools/send_bond_ai_causality_v1_8_16.py`, análise `tools/analyze_bond_ai_causality_v1_8_16.py`, testes `tests/test_bond_ai_causality_v1_8_16.py`. Congelamento manual apenas de A e liberação com Bond parado para investigar causalidade da perseguição. Eixos e relações funcionais permanecem hipóteses.
