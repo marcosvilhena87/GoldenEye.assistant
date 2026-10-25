@@ -14,7 +14,7 @@ def read_csv(path):
         return list(csv.DictReader(stream))
 
 def analyze(sid, root=Path("output/csv")):
-    if not sid or "/" in sid or "\\\\" in sid or ".." in sid:
+    if not sid or "/" in sid or "\\" in sid or ".." in sid:
         raise ValueError("unsafe session")
     stem = root / ("bond_soldier_v1_8_2_" + sid)
     timeline = read_csv(Path(str(stem) + "_timeline.csv"))
@@ -33,9 +33,19 @@ def analyze(sid, root=Path("output/csv")):
         frames[n][r["field"]] = r
         if r["alias_equal"] != "1":
             alias_mismatches.append({"frame": n, "field": r["field"]})
+    seq_all = sorted(frames)
+    incomplete = [{"frame": n, "missing_fields": sorted(EXPECTED - set(frames[n]))}
+                  for n in seq_all if set(frames[n]) != EXPECTED]
+    # A live logger flushes the timeline every 30 frames. A reader can see
+    # the newest frame halfway through its six records. Never treat it as valid.
+    # Interior incomplete frames are not safe to bridge or silently discard.
+    if any(item["frame"] != seq_all[-1] for item in incomplete):
+        raise ValueError("incomplete interior six-field frames: " + str(incomplete[:10]))
+    if incomplete:
+        frames.pop(seq_all[-1])
     seq = sorted(frames)
-    if any(set(frames[n]) != EXPECTED for n in seq):
-        raise ValueError("incomplete six-field frames")
+    if not seq:
+        raise ValueError("no complete six-field frames")
     gaps = [{"before": a, "after": b} for a, b in zip(seq, seq[1:]) if b != a + 1]
     changes = []
     for a, b in zip(seq, seq[1:]):
@@ -84,7 +94,9 @@ def analyze(sid, root=Path("output/csv")):
     markers_sorted = [{"frame": int(m["frame"]), "label": m["label"]} for m in markers]
     report = {
         "protocol": "bond_soldier_coordinate_correlation_v1_8_2",
-        "session": sid, "frames": len(seq), "changes": changes,
+        "session": sid, "frames": len(seq), "incomplete_frames": incomplete,
+        "capture_complete": not incomplete and bool(termination and termination[-1].get("reason") == "stop"),
+        "changes": changes,
         "intervention_candidates": interventions, "phase_stats": phase_stats,
         "markers": markers_sorted, "alias_mismatches": alias_mismatches,
         "timeline_gaps": gaps, "termination": termination,
@@ -97,7 +109,8 @@ def analyze(sid, root=Path("output/csv")):
             "Two soldier fields may be unrelated to EC/F4 or each other.",
             "Changes are detected from raw bytes, independently of WRITE_APPLIED timing.",
             "Frozen AI and stable bytes do not establish physical soldier stationarity.",
-            "Only independently validated same-frame geometry can support a spatial claim."
+            "Only independently validated same-frame geometry can support a spatial claim.",
+            "An incomplete final frame is excluded and capture_complete is false; stop the Lua logger before final audit."
         ]}
     return report
 
