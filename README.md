@@ -215,3 +215,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading Discovery v1.9.1
 
 [Protocolo](docs/BOND_HEADING_DISCOVERY_V1_9_1.md) com auditoria retrospectiva de v1.9, observador Lua direcionado a `0x0D33F8` e seus vizinhos, comparações de pares de vetores, fases controladas de giro/retorno e testes. Sem promoção de símbolos nem automação de rotação.
+
+## Bond Heading Discovery v1.9.2
+
+[Angular cycle and orthogonal component experiment](docs/BOND_HEADING_DISCOVERY_V1_9_2.md): `bond_heading_discovery_v1_9_2.lua`, marker sender `tools/send_bond_heading_v1_9_2.py`, analyzer `tools/analyze_bond_heading_v1_9_2.py`, and tests `tests/test_bond_heading_v1_9_2.py`. Read-only, no heading or orthogonal vector validated.
