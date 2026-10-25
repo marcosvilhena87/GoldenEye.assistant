@@ -179,3 +179,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Soldier Coordinate Discovery v1.8.10 — Frozen Soldier / Bond-only Motion
 
 [Protocolo](docs/SOLDIER_FROZEN_BOND_MOTION_V1_8_10.md). Coletor `soldier_frozen_bond_motion_v1_8_10.lua` e emissor `tools/send_soldier_frozen_v1_8_10.py` anotam FREEZE confirmado visualmente, Bond aproximando/recuando, parada proxima/distante e rotacao sem translacao. Analisador `tools/analyze_soldier_frozen_v1_8_10.py` compara distancia hipotetica em dois componentes por frame e exige constancia dos campos do soldado durante todas as fases pos-Freeze para sinalizar convergencia controlada. Testes sinteticos em `tests/test_soldier_frozen_v1_8_10.py`. Ainda nao valida coordenadas fisicas X/Z, identidade ou estabilidade entre saves.
+
+## Soldier Coordinate Discovery v1.8.11 — Auto-Aim Rotation Isolation
+
+[Protocolo completo](docs/SOLDIER_AUTOAIM_ROTATION_V1_8_11.md): novo coletor `soldier_autoaim_rotation_v1_8_11.lua`, comandos `tools/send_soldier_autoaim_v1_8_11.py`, analisador `tools/analyze_soldier_autoaim_v1_8_11.py` e testes sintéticos. O analisador também aceita `--source v1.8.10` para decompor a rotação da sessão anterior, sem afirmar efeito causal do auto-aim. Estados auto-aim/Freeze são confirmados visualmente e não são controlados pelo script. Nenhuma validação definitiva de X/Z.
