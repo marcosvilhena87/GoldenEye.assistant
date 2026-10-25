@@ -195,3 +195,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Position Validation v1.8.14 — Spatial Return & Alias Divergence Audit
 
 [Protocolo e execução](docs/BOND_POSITION_ALIAS_AUDIT_V1_8_14.md): `tools/audit_bond_position_v1_8_14.py` reaproveita os CSVs da v1.8.13 e audita as divergências byte a byte de aliases, janelas de ±1/2 frames e oposição/fechamento de vetores candidatos em idas e voltas. Testes em `tests/test_bond_position_v1_8_14.py`. Sem validação automática de eixos, identidade, atraso ou retorno físico.
+
+## Bond Position v1.8.15 — Alias Update Ordering
+
+[Auditoria offline](docs/BOND_ALIAS_ORDERING_V1_8_15.md): `tools/audit_bond_alias_v1_8_15.py` classifica frames divergentes dos vetores A/B, examina atualizações condicionadas a mudanças e diagnósticos A_first/B_first; testes `tests/test_bond_alias_v1_8_15.py`. Não promove hipóteses ao GoldenEye.mapping.
