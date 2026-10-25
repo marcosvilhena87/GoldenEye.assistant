@@ -4,13 +4,16 @@ local D="RDRAM"
 assert(memory and memory.read_u8 and memory.getmemorydomainsize and emu and emu.frameadvance and emu.framecount,"BizHawk API unavailable")
 assert(memory.getmemorydomainsize(D)==8388608,"RDRAM must be exactly 8 MiB")
 local seeds={0x0D3998,0x0D3D40,0x0D36F4,0x0D3720,0x0D33E8,0x0D33EC,0x0D33F0,0x0D33F4,0x06D248,0x06D250,0x040A90,0x0D3088,0x0D3098}
-local offsets,seen={},{}\n-- Include unaligned byte candidates explicitly in addition to aligned float32 windows.\nlocal byte_fields={0x0D36F4,0x0D3720,0x040A93,0x0D308B,0x0D309B}
+local offsets,seen={},{}
+-- Include unaligned byte candidates explicitly in addition to aligned float32 windows.
+local byte_fields={0x0D36F4,0x0D3720,0x040A93,0x0D308B,0x0D309B}
 for _,s in ipairs(seeds) do
  for o=s-8,s+8,4 do
   if o>=0 and o+3<8388608 and not seen[o] then seen[o]=true;offsets[#offsets+1]=o end
  end
 end
-for _,o in ipairs(byte_fields) do if not seen[o] then seen[o]=true;offsets[#offsets+1]=o end end\ntable.sort(offsets)
+for _,o in ipairs(byte_fields) do if not seen[o] then seen[o]=true;offsets[#offsets+1]=o end end
+table.sort(offsets)
 local LABELS={BASELINE_STILL=true,TURN_LEFT=true,STILL_LEFT=true,TURN_RIGHT=true,STILL_RETURN=true,TURN_FULL_CIRCLE=true,STILL_FULL_CIRCLE=true,MOVE_FORWARD=true,STILL_AFTER_MOVE=true,MOVE_BACK=true,STILL_FINAL=true,AIM_ON_NO_TARGET_TURN=true,AIM_OFF_NO_TARGET_TURN=true,STOP=true}
 local function create(path,header)
  local old=io.open(path,"rb");assert(not old,"Output already exists: "..path)
