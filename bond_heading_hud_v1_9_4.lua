@@ -55,6 +55,7 @@ while true do
  local valid=x and y and x==x and y==y and math.abs(x*x+y*y-1)<0.02
  local angle=nil
  if valid then angle=math.deg(math.atan2(y,x)) end
+ if not valid then prev=nil end
  if valid and angle then
   if not ref then ref=angle;total=0;prev=angle
   elseif prev then
@@ -66,6 +67,7 @@ while true do
  local rel=valid and principal(angle-ref) or nil
  local targetDeg=target==360 and 0 or target
  local err=rel and principal(targetDeg-rel) or nil
+ local cumulative_remaining=valid and (target-total) or nil
  local norm=x and y and x*x+y*y or nil
  gui.text(8,18,"Bond Heading HUD v1.9.4 (EXPERIMENTAL)")
  gui.text(8,32,string.format("Vector: %s",valid and "VALID" or "INVALID"))
@@ -76,6 +78,7 @@ while true do
  gui.text(8,102,string.format("relative: %s",rel and string.format("%.2f deg",rel) or "?"))
  gui.text(8,116,string.format("target: %d deg; error: %s",target,err and string.format("%.2f deg",err) or "?"))
  gui.text(8,130,string.format("cumulative: %.2f deg (%.2f turns)",total,total/360))
+ gui.text(8,158,string.format("target cumulative %d: remaining %s",target,cumulative_remaining and string.format("%.2f deg",cumulative_remaining) or "?"))
  gui.text(8,144,"REFERENCE to reset; no controller or RAM writes")
  emu.frameadvance()
 end
