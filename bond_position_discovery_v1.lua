@@ -1,8 +1,12 @@
--- Bond Position Discovery v1.0.1 - read-only, emulator API diagnostics
+-- Bond Position Discovery v1.0.2 - read-only, emulator API diagnostics
 local DOMAIN="RDRAM"
 local BASE=0x0D33E8
 local LAST=0x0D33F0
-local function available(t,k) return type(t)=="table" and type(t[k])=="function" end
+local function available(t,k)
+  if t==nil then return false end
+  local ok,v=pcall(function() return t[k] end)
+  return ok and v~=nil and (type(v)=="function" or type(v)=="userdata")
+end
 local function report(s) if available(console,"log") then console.log(s) else print(s) end end
 local read8,source
 if available(memory,"read_u8") and available(memory,"getmemorydomainlist") then
@@ -25,9 +29,9 @@ elseif available(mainmemory,"read_u8") then
   -- Main memory may or may not be the Cheat Search RDRAM domain.
   error("Only mainmemory.read_u8 available. Refusing to assume its offset mapping equals Cheat Search RDRAM. Confirm emulator/core and domain before proceeding.")
 else
-  error("No compatible RDRAM byte-read API. memory.read_u8="..tostring(type(memory)=="table" and type(memory.read_u8))..
-    ", memory.readbyte="..tostring(type(memory)=="table" and type(memory.readbyte))..
-    ", mainmemory.read_u8="..tostring(type(mainmemory)=="table" and type(mainmemory.read_u8))..
+  error("No compatible RDRAM byte-read API. memory.read_u8="..tostring(memory and type(memory.read_u8))..
+    ", memory.readbyte="..tostring(memory and type(memory.readbyte))..
+    ", mainmemory.read_u8="..tostring(mainmemory and type(mainmemory.read_u8))..
     ". Load this script from BizHawk Lua Console with N64 ROM running; verify API availability.")
 end
 assert(type(emu)=="table" and available(emu,"frameadvance") and available(emu,"framecount"),"emu frame API unavailable")
