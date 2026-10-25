@@ -251,3 +251,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.9 — Temporal Signal Analysis
 
 [Read-only temporal audit protocol](docs/BOND_HEADING_HUD_V1_9_9.md) and scripts `bond_heading_hud_v1_9_9.lua`, `tools/send_bond_heading_hud_v1_9_9.py`, `tools/audit_bond_heading_hud_v1_9_9.py` can capture new sessions or retrospectively audit v1.9.8 CSV files. No address semantic promotion.
+
+## Bond Heading v1.9.10 — Pitch Signal Correlation & Temporal Alignment
+
+[Offline correlation protocol](docs/BOND_HEADING_HUD_V1_9_10.md): tools/audit_bond_heading_hud_v1_9_10.py analyzes raw identity and lagged first-difference correlation on v1.9.8/v1.9.9 sessions without game inputs or RAM writes.
