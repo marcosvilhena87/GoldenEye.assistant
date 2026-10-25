@@ -243,3 +243,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.7.1 — Corrected C-Buttons semantics
 
 [Corrected protocol](docs/BOND_HEADING_HUD_V1_9_7_1.md) supersedes v1.9.7 controller assumptions: C-left/right are strafe; C-up/down raise/lower the weapon; BODY_TURN uses separate confirmed yaw controls. Read-only capture: `bond_heading_hud_v1_9_7_1.lua`; sender/auditor/tests under `tools/` and `tests/`.
+
+## Bond Heading v1.9.8 — Camera Pitch & Reticle Offset Discovery
+
+[Experiment protocol](docs/BOND_HEADING_HUD_V1_9_8.md). C-Up/Down shifts camera pitch with hidden centered reticle; R+analog vertical changes camera pitch and visible reticle. The read-only HUD collects the known horizontal candidate plus raw and decoded auxiliary float candidates; the audit compares phase response without asserting physical addresses.
