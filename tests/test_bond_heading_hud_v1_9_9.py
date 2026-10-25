@@ -1,4 +1,5 @@
 import csv
+import struct
 import tempfile
 import unittest
 from pathlib import Path
@@ -18,7 +19,7 @@ class TemporalAuditTests(unittest.TestCase):
     for i in range(8):
      phase="BASELINE_STILL" if i<3 else "CAMERA_PITCH_UP"
      value=[0,0,0,0,1,2,1,0][i]
-     raw="3F800000" if value else "00000000"
+     raw=struct.pack(">f",float(value)).hex().upper()
      w.writerow(["test",i,phase,1,0,"3F800000","00000000",1,0,1,1,0,0,0,0,0,0,0,"",
                  "00000000","00000000",raw,raw,0,0,value,value])
    Path(str(base)+"_events.csv").write_text("session,frame,seq,event,target_deg,reference_deg,cumulative_deg\ntest,0,1,REFERENCE,0,0,0\ntest,8,2,STOP,0,0,0\n")
