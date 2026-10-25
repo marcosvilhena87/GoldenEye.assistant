@@ -167,3 +167,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Soldier Coordinate Discovery v1.8.8.1 — AI Chase Observation
 
 A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao controla. **Nao utilizar esse protocolo para validar eixos.** [Protocolo observacional substituto](docs/SOLDIER_CHASE_OBSERVATION_V1_8_8_1.md): `soldier_chase_observation_v1_8_8_1.lua`, `tools/send_soldier_chase_v1_8_8_1.py`, `tools/analyze_soldier_chase_v1_8_8_1.py`. Bond provoca perseguicao; o soldado so e observado. Coleta e analise sao somente leitura, sem atribuicao automatica X/Z ou identidade em RAM.
+
+## Soldier Coordinate Discovery v1.8.8.2 — Bond proximity convergence
+
+[Protocolo de convergencia](docs/SOLDIER_PROXIMITY_CONVERGENCE_V1_8_8_2.md) e analisador offline `tools/analyze_soldier_proximity_v1_8_8_2.py`: reusa capturas da v1.8.8.1, comparando a diferenca absoluta escalar entre candidatos de Bond e Soldier #1 durante `BOND_APPROACH` e `BOND_RETREAT`. Exige interpretacao cautelosa: aproximacao numerica nao prova distancia fisica 2D/3D, coordenadas mundiais ou identidade do soldado. Teste sintetico: `tests/test_soldier_proximity_v1_8_8_2.py`.
