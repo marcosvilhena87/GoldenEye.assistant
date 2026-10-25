@@ -231,3 +231,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.5 — Auditable HUD
 
 [Operator protocol](docs/BOND_HEADING_HUD_V1_9_5.md): read-only `bond_heading_hud_v1_9_5.lua` logs per-frame raw values and angular metrics, command ACK events and explicit termination. `tools/send_bond_heading_hud_v1_9_5.py` sends commands, `tools/audit_bond_heading_hud_v1_9_5.py` audits capture integrity and target phases. Tests: `tests/test_bond_heading_hud_v1_9_5.py`. No automatic controller commands or canonical address validation.
+
+## Bond Heading v1.9.6 — Physical Controls
+
+[Experimental protocol](docs/BOND_HEADING_HUD_V1_9_6.md): `bond_heading_hud_v1_9_6.lua` labels movement/aim/weapon/camera/landmark controls and records per-frame angles; `tools/audit_bond_heading_hud_v1_9_6.py` audits phases and multiple sessions; the sender remains read-only to game/controller state. Physical heading not yet validated.
