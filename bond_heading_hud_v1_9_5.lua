@@ -73,15 +73,19 @@ end
 print("[bond.heading.hud.v1.9.5] SESSION "..sid.." READ ONLY")
 while true do
  if poll() then break end
- local rawx,rawy=raw32(X),raw32(Y)\n local x,y=float32(X),float32(Y)
+ local rawx,rawy=raw32(X),raw32(Y)
+ local x,y=float32(X),float32(Y)
  local valid=x and y and x==x and y==y and math.abs(x*x+y*y-1)<0.02
  local angle=nil
  if valid then local rad=atan2_compat(y,x); if rad then angle=math.deg(rad) else valid=false end end
- local step=nil\n local reset_reason=""\n if not valid then prev=nil;reset_reason="invalid_vector" end
+ local step=nil
+ local reset_reason=""
+ if not valid then prev=nil;reset_reason="invalid_vector" end
  if valid and angle then
   if not ref then ref=angle;total=0;prev=angle
   elseif prev then
-   local delta=principal(angle-prev)\n   step=delta
+   local delta=principal(angle-prev)
+   step=delta
    if math.abs(delta)<90 then total=total+delta else print("[bond.heading.hud.v1.9.5] WARNING large angular jump: "..delta);total=0;ref=angle;reset_reason="large_jump";step=nil end
    prev=angle
   end
