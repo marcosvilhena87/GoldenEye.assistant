@@ -183,3 +183,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Soldier Coordinate Discovery v1.8.11 — Auto-Aim Rotation Isolation
 
 [Protocolo completo](docs/SOLDIER_AUTOAIM_ROTATION_V1_8_11.md): novo coletor `soldier_autoaim_rotation_v1_8_11.lua`, comandos `tools/send_soldier_autoaim_v1_8_11.py`, analisador `tools/analyze_soldier_autoaim_v1_8_11.py` e testes sintéticos. O analisador também aceita `--source v1.8.10` para decompor a rotação da sessão anterior, sem afirmar efeito causal do auto-aim. Estados auto-aim/Freeze são confirmados visualmente e não são controlados pelo script. Nenhuma validação definitiva de X/Z.
+
+## Soldier Coordinate Discovery v1.8.12 — Rotation vs Translation
+
+[Protocolo experimental](docs/SOLDIER_BOND_MOTION_V1_8_12.md): monitor somente leitura `soldier_bond_motion_v1_8_12.lua`, emissor `tools/send_soldier_motion_v1_8_12.py`, analisador `tools/analyze_soldier_motion_v1_8_12.py` e testes `tests/test_soldier_motion_v1_8_12.py`. Com Soldier #1 congelado, coleta rotação esquerda/direita, caminhada frente/trás e controles parados. Separa resposta por campo e fase, testa invariância dos candidatos do soldado e igualdade entre aliases. Não confirma direção física, auto-aim, XYZ nem identidade de entidade.
