@@ -143,3 +143,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Soldier Positive Motion Control v1.8.3
 
 [Protocolo da v1.8.3](docs/BOND_SOLDIER_POSITIVE_MOTION_V1_8_3.md): `bond_soldier_positive_motion_v1_8_3.lua` observa os quatro campos candidatos de Bond e os dois campos experimentais do Soldier #1, sem escrita na RAM. Use `python -m tools.send_bond_soldier_v1_8_3 LABEL` para enviar marcadores sequenciais com confirmação `MARKED`. Após `DONE stop`, execute `python -m tools.analyze_bond_soldier_v1_8_3 SESSION`. O analisador compara Freeze, movimento positivo e reimobilização; **não valida automaticamente XYZ**. Testes sintéticos em `tests/test_bond_soldier_v1_8_3.py`. A v1.8.2 permanece preservada.
+
+## Freeze Transition Timing & Soldier Coordinate Validation v1.8.4
+
+[Protocolo](docs/BOND_SOLDIER_FREEZE_TRANSITION_V1_8_4.md). Novo observador `bond_soldier_freeze_transition_v1_8_4.lua` (somente leitura) acrescenta o indicador experimental u8 `0x02C90C` ao monitoramento Bond/Soldier, com leitura de aliases. Utilize `python -m tools.send_bond_soldier_v1_8_4 LABEL` para marcar os estados e `python -m tools.analyze_bond_soldier_v1_8_4 SID` para detectar episódios, pausas, transições do indicador e períodos de estabilidade. Os testes em `tests/test_bond_soldier_v1_8_4.py` são sintéticos, sem validação no BizHawk. **Não promove coordenadas nem Freeze a campos canônicos.**
