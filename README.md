@@ -163,3 +163,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Soldier Coordinate Discovery v1.8.8 — Directional Axis Identification
 
 [Protocolo v1.8.8](docs/SOLDIER_DIRECTIONAL_AXIS_V1_8_8.md): monitor read-only `soldier_directional_axis_v1_8_8.lua`, emissor `tools/send_soldier_direction_v1_8_8.py` e analisador `tools/analyze_soldier_direction_v1_8_8.py`. Compara respostas a direcoes opostas A+/A-, B+/B-, controles de rotacao/movimento de Bond e imobilidade. Testes `tests/test_soldier_direction_v1_8_8.py`. Direcoes sao anotacoes de operador, nao eixos de mundo validados. Nao promove offsets a simbolos.
+
+## Soldier Coordinate Discovery v1.8.8.1 — AI Chase Observation
+
+A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao controla. **Nao utilizar esse protocolo para validar eixos.** [Protocolo observacional substituto](docs/SOLDIER_CHASE_OBSERVATION_V1_8_8_1.md): `soldier_chase_observation_v1_8_8_1.lua`, `tools/send_soldier_chase_v1_8_8_1.py`, `tools/analyze_soldier_chase_v1_8_8_1.py`. Bond provoca perseguicao; o soldado so e observado. Coleta e analise sao somente leitura, sem atribuicao automatica X/Z ou identidade em RAM.
