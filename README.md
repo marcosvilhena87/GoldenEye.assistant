@@ -155,3 +155,7 @@ Implementados [coletor Lua v1.6](horizontal_correction_discovery_v1_6.lua), [env
 ## Soldier Coordinate Discovery v1.8.6 — Spatial Structure Correlation
 
 [Protocolo](docs/SOLDIER_SPATIAL_STRUCTURE_V1_8_6.md): observador `soldier_spatial_structure_v1_8_6.lua` (somente leitura) amostra por frame os endereços experimentais e suas vizinhanças de ±8 bytes nas famílias `0x06A1xx`, `0x1F19xx–0x1F1Bxx`, `0x20F4xx–0x20F7xx`, além de campos de referência da IA e Bond. Emissor: `python -m tools.send_soldier_spatial_v1_8_6 LABEL`; análise offline: `python -m tools.analyze_soldier_spatial_v1_8_6 SID`. Mede coocorrência de alterações, duplicação exata da série RAW e diferenças float32 BE hipotéticas; **não confirma X/Z, ponteiros, identidade do soldado ou persistência entre saves**. Testes sintéticos: `tests/test_soldier_spatial_v1_8_6.py`.
+
+## Soldier Coordinate Discovery v1.8.7 — Entity Spatial Identity & Freeze Timing
+
+[Protocolo](docs/SOLDIER_ENTITY_IDENTITY_V1_8_7.md): observador somente leitura `soldier_entity_identity_v1_8_7.lua`, emissor `tools/send_soldier_identity_v1_8_7.py` e analisador offline `tools/analyze_soldier_identity_v1_8_7.py`. Marcadores distintos para pedido, confirmacao visual e reversao do Freeze; pares duplicados e janelas retrospectivas de estabilidade. Testes sinteticos em `tests/test_soldier_identity_v1_8_7.py`. Identidade, XYZ e persistencia entre saves nao validadas.
