@@ -223,3 +223,7 @@ A v1.8.8 dependia de movimentos direcionais A/B do soldado que o operador nao co
 ## Bond Heading v1.9.3 — Angular Reconstruction
 
 [Instruções](docs/BOND_HEADING_DISCOVERY_V1_9_3.md): `tools/analyze_bond_heading_v1_9_3.py` converte vetores experimentais `0x0D33F8/0x0D3400` em ângulos matemáticos `atan2`, corrige wrap-around de ±180°, audita as fases e exporta ângulos quadro a quadro. Testes: `tests/test_bond_heading_v1_9_3.py`. Heading físico ainda não calibrado; sem automação ou mudança canônica.
+
+## Bond Heading v1.9.4 — Live Calibration HUD
+
+[HUD instructions](docs/BOND_HEADING_HUD_V1_9_4.md). `bond_heading_hud_v1_9_4.lua` shows live experimental atan2 vector angle, normalized-norm status, reference, target, signed angular error, cumulative turns and 360° remaining. `tools/send_bond_heading_hud_v1_9_4.py` selects targets or reference; tests in `tests/test_bond_heading_hud_v1_9_4.py`. Read-only; no physically calibrated heading yet.
