@@ -2,6 +2,7 @@
 from pathlib import Path
 import argparse
 import os
+import tempfile
 
 VALID = {"BASELINE", "FREEZE_ON", "FREEZE_OFF", "CAMERA_ONLY",
          "BOND_MOVE", "SOLDIER_MOVE", "WRITE_PRE", "WRITE_APPLIED",
@@ -16,14 +17,28 @@ def send(label, root=None):
         raise ValueError("Invalid SID")
     commands = base / "commands"
     commands.mkdir(parents=True, exist_ok=True)
-    for seq in range(1, 10000):
-        path = commands / f"bond_soldier_v1_8_4_{sid}_{seq:04d}.txt"
-        try:
-            with path.open("x", encoding="ascii", newline="\n") as out:
-                out.write(f"LABEL:{label}\n")
-            return path
-        except FileExistsError:
-            continue
+    # Construct the complete command in an invisible temporary file first.
+    # Publishing via rename prevents Lua from observing an empty/partial file.
+    fd, temp_name = tempfile.mkstemp(prefix=".bond_soldier_v1_8_4_", suffix=".tmp", dir=commands)
+    temp = Path(temp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="ascii", newline="\n") as out:
+            out.write(f"LABEL:{label}\n")
+            out.flush()
+            os.fsync(out.fileno())
+        for seq in range(1, 10000):
+            path = commands / f"bond_soldier_v1_8_4_{sid}_{seq:04d}.txt"
+            if path.exists():
+                continue
+            try:
+                # On Windows os.rename fails if destination already exists.
+                os.rename(temp, path)
+                return path
+            except FileExistsError:
+                continue
+    finally:
+        if temp.exists():
+            temp.unlink()
     raise RuntimeError("Command limit exceeded")
 
 def main():
